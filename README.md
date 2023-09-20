@@ -741,8 +741,6 @@ yarn main-verify 0xbb0d733BDBe151dae3cEf8D7D63cBF74cCbf04C4
 # Done in 8.88s.
 ```
 ### Deploy Phat Contract to Phala Mainnet
-> 🚨 **WARNING** 🚨: This section is undergoing testing. Wait before an announcement to deploy to mainnet.
-> 
 For customizing your Phat Contract function, checkout default function [README.md](./src/README.md) and advanced configurations in [ADVANCED.md](./src/ADVANCED.md) to learn more before deploying to Phala Mainnet.
 
 First you will need to build your function with this command:
@@ -821,7 +819,36 @@ yarn main-push-request
 ```
 
 ### Update Phat Contract on Phala Mainnet
-TODO
+Now let's update the function that we have deployed. Once we have updated the function, we must build the function again.
+```shell
+yarn build-function
+```
+```shell
+yarn build-function
+# yarn run v1.22.18
+# $ phat-fn build src/index.ts
+# Creating an optimized build... done
+# Compiled successfully.
+#
+#  17.66 KB  dist/index.js
+# ✨  Done in 3.48s.
+```
+> Note: Before we update the function, make sure to take the `WORKFLOW_ID` from the deployment of the Phat Contract function step and set it in your `.env` file.
+
+Now let's update the function with the following command:
+```shell
+yarn main-update-function
+```
+```shell
+yarn main-update-function
+# yarn run v1.22.18
+# $ hardhat run --network polygon ./scripts/polygon/update-function.ts
+# (node:12991) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Your Brick Profile contract ID: 0xfd18dca07dc76811dd99b14ee6fe3b82e135ed06a2c311b741e6c9163892b32c
+# The Phat Function for workflow 0 has been updated.
+# ✨  Done in 5.07s.
+```
 
 ## Closing
 Once you have stored, the deployed address of the Consumer Contract and set the value in the "Configure Client" section of the deployed LensAPI Oracle, you will now have a basic boilerplate example of how to connect your Polygon dApp to a LensAPI Oracle Blueprint. Execute a new requests and check if your configuration is correct like below:
