@@ -16,28 +16,24 @@ Using this starter kit allows you to initiate the data request from smart contra
 ## Use cases & Examples
 
 You could use the Oracle to:
-- **Cross-chain DEX Aggregator**
-![](./assets/case-cross-chain-dex-aggregator.jpg)
-- **Bring Web2 services & data on-chain**
-![](./assets/case-contract-controlled-web2-service.jpg)
+- **[Create a Telegram / Discord trading bot with Phat Contract](https://github.com/pacoyang/phatbot)**
+- **[Cross-chain DEX Aggregator](./assets/case-cross-chain-dex-aggregator.jpg)**
+- **[Bring Web2 services & data on-chain](./assets/case-contract-controlled-web2-service.jpg)**
 - **Web3 Social Integrations**
-  - [LensAPI Oracle](https://github.com/Phala-Network/lensapi-oracle-consumer-contract)
-  ![](./assets/basic-lensapi-oracle.png)
-  - Mint NFT based on LensAPI Oracle data
-  ![](./assets/LensAPI-Oracle.png)
-  - [Lens Treasure Hunt](https://github.com/HashWarlock/lensapi-oracle-devdao-workshop)
-  ![](./assets/LensAPITreasureHunt.png)
-- [Get Randomness on-chain from drand.love and post with Telegram bot](https://github.com/HashWarlock/phat-drand-tg-bot)
-![](./assets/Drand-TG-Bot-HLD.png)
-- **Trustless HTTPS requests** w/ [TLSNotary](https://tlsnotary.org/) integration
-- **Connect to Phat Contract Rust SDK** to access all features
-![](./assets/Oracle-Rust-SDK.png)
+  - **[LensAPI Oracle](https://github.com/Phala-Network/lensapi-oracle-consumer-contract)**
+  - **[Lens Phite](https://github.com/aeyshubh/lens-Phite2)**
+  - **[Mint NFT based on LensAPI Oracle data](./assets/LensAPI-Oracle.png)**
+  - **[Lens Treasure Hunt](https://github.com/HashWarlock/lensapi-oracle-devdao-workshop)**
+- **[Get Randomness on-chain from drand.love and post with Telegram bot](https://github.com/HashWarlock/phat-drand-tg-bot)**
+- **Trustless HTTPS requests w/ [TLSNotary](https://tlsnotary.org/) integration**
+- **[Connect to Phat Contract Rust SDK](./assets/Oracle-Rust-SDK.png)** to access all features
+- **[Dynamic NFTs](https://github.com/keshavsharma25/PokeLens-Contract)**
 
 ## Resources
-- [What’s Oracle](https://ethereum.org/en/developers/docs/oracles/)
-- Frontend Templates
-  - [Scaffold ETH2](https://github.com/scaffold-eth/scaffold-eth-2)
-    - [Phat Scaffold ETH2](https://github.com/HashWarlock/phat-scaffold-eth)
-  - [Create ETH App](https://github.com/paulrberg/create-eth-app)
-  - [Nexth Starter Kit](https://nexth.vercel.app/)
-- [Technical design doc](https://github.com/Phala-Network/phat-offchain-rollup)
+- **[What’s Oracle](https://ethereum.org/en/developers/docs/oracles/)**
+- **Frontend Templates**
+  - **[Scaffold ETH2](https://github.com/scaffold-eth/scaffold-eth-2)**
+    - **[Phat Scaffold ETH2](https://github.com/HashWarlock/phat-scaffold-eth)**
+  - **[Create ETH App](https://github.com/paulrberg/create-eth-app)**
+  - **[Nexth Starter Kit](https://nexth.vercel.app/)**
+- **[Technical design doc](https://github.com/Phala-Network/phat-offchain-rollup)**
