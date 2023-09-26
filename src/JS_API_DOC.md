@@ -21,6 +21,7 @@ What you will learn:
         - sha256
         - keccak256
 - Customize Your Default Function and Test Locally.
+- Encode the response data and update your consumer contract to handle the abi decoding.
 
 ## Getting Started
 

@@ -41,7 +41,7 @@ describe("TestLensApiConsumerContract", function () {
     const reqEvents = receipt.events;
     expect(reqEvents![0]).to.have.property("event", "MessageQueued");
 
-    // Wait for Phat Function response
+    // Wait for Phat Contract response
     const respEvents = await waitForResponse(consumer, reqEvents![0])
 
     // Check response data

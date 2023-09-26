@@ -1,13 +1,13 @@
-# Polygon Consumer Contract for LensAPI Oracle
+# Connect Phala's Oracle to EVM Consumer Contract
 ![](./assets/Phat-Contract-Logo.png)
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
   - [Environment Variables](#environment-variables)
-- [Create a Bricks Profile](#create-a-bricks-profile)
+- [Create a Phala Profile](#create-a-phala-profile)
 - [Testing Locally](#testing-locally)
-  - [Test Default Function Locally](#test-default-function-locally)
-  - [Testing Default Function with Local Hardhat Node](#testing-default-function-with-local-hardhat-node)
+  - [Test Default Phat Contract Locally](#test-default-phat-contract-locally)
+  - [Testing Default Phat Contract with Local Hardhat Node](#testing-default-phat-contract-with-local-hardhat-node)
 - [Deployment](#deployment)
   - [Deploy to Polygon Mumbai Testnet](#deploy-to-polygon-mumbai-testnet)
     - [Verify Contract on Polygon Mumabai Testnet](#verify-contract-on-polygon-mumbai-testnet)
@@ -23,24 +23,24 @@
 - [Closing](#closing)
 
 ## Overview
-This project represents a basic Polygon Consumer Contract that is compatible with a deployed LensAPI Oracle via [Phat Bricks UI](https://bricks.phala.network).
-
+This project represents a basic EVM Consumer Contract that is compatible with a deployed Oracle written in TypeScript on Phala Network.
+> **Note**: For simplicity, we will utilize Polygon Mumbai and Polygon Mainnet for the following examples.
 ## Prerequisites
-- Active Bricks Profile with version `1.0.1` via [Phat Bricks](https://bricks.phala.network)
+- Active Phala Profile with version `>= 1.0.1` via [Phat Contract 2.0 UI](https://bricks.phala.network)
 - [Hardhat](https://hardhat.org)
 - For EVM Mainnet deployments:
   - Ex: Polygonscan API Key that can be generated on [polygonscan](https://polygonscan.com)
 - RPC Endpoint for EVM Chain Mainnet & EVM Chain Testnet
   - [Alchemy](https://alchemy.com) - This repo example uses Alchemy's API Key.
   - [Infura](https://infura.io)
-  - Personal RPC Node
+  - Personal RPC Node (Ex. [ProjectPi](TODO))
 - Polkadot Account for Phala PoC5 Testnet and Mainnet deployment
 
 ### Environment Variables:
 Check out the environment variables here in [.env.local](./.env.local) file.
 
 ## Getting Started
-> Note: If you cloned this repo or created a template, skip to [Create a Bricks Profile](#create-a-bricks-profile)
+> Note: If you cloned this repo or created a template, skip to [Create a Phala Profile](#create-a-phala-profile)
 > 
 First you will need to install the [@phala/fn](https://www.npmjs.com/package/@phala/fn) CLI tool using your node package manager (`npm`) or use node package execute (`npx`). In this tutorial we use `npx`.
 
@@ -83,27 +83,27 @@ ls
 # -rw-r--r--   1 hashwarlock  staff   290K Sep  6 15:32 yarn.lock
 ```
 
-## Create a Bricks Profile
+## Create a Phala Profile
 This step requires you to have a Polkadot account. You can get an account from one of the following:
 - [Polkadot.js Wallet Extension](https://polkadot.js.org/extension/)
 - [Talisman Wallet](https://www.talisman.xyz/)
 - [SubWallet](https://www.subwallet.app/) (**Support for iOS/Android**)
 
-First, create your Bricks Profile account on the [Phala PoC5 Testnet](https://bricks-poc5.phala.network) or [Phala Mainnet](https://bricks.phala.network). Here is a quick 1 minute [YouTube video](https://youtu.be/z1MR48NYtYc) on setting up from scratch.
+First, create your Phala Profile account on the [Phala PoC5 Testnet](https://bricks-poc5.phala.network) or [Phala Mainnet](https://bricks.phala.network). Here is a quick 1 minute [YouTube video](https://youtu.be/z1MR48NYtYc) on setting up from scratch.
 
-Here is what your Bricks Profile account overview should look like:
+Here is what your Phala Profile account overview should look like:
 ![](./assets/BricksProfileCheck.png)
 
-After creating your Bricks Profile, set your `.env` variable `POLKADOT_WALLET_SURI` to the mnemonic phrase from generating the new Polkadot Account. 
+After creating your Phala Profile, set your `.env` variable `POLKADOT_WALLET_SURI` to the mnemonic phrase from generating the new Polkadot Account. 
 
 Here is a screenshot of how to set `POLKADOT_WALLET_SURI`:
 ![](./assets/PolkadotAccountSuri.png)
 
 ## Testing Locally
 
-### Test Default Function Locally
+### Test Default Phat Contract Locally
 
-With a template created and a basic default function example ready to test, let’s step through the process of preparing your repo to execute the test locally.
+With a template created and a basic default Phat Contract example ready to test, let’s step through the process of preparing your repo to execute the test locally.
 
 First step is to install the package dependencies with the following command:
 ```bash
@@ -121,7 +121,7 @@ yarn install
 # ✨  Done in 4.95s.
 ```
 
-Now that the package dependencies are installed, lets build the default function which is located in `./src/index.ts`.
+Now that the package dependencies are installed, lets build the default Phat Contract which is located in `./src/index.ts`.
 <details>
   <summary> View file <code>./src/index.ts</code></summary>
     import "@phala/pink-env";
@@ -199,8 +199,8 @@ Now that the package dependencies are installed, lets build the default function
       });
       let body = stringToHex(query);
       //
-      // In Phat Function runtime, we not support async/await, you need use `pink.batchHttpRequest` to
-      // send http request. The function will return an array of response.
+      // In Phat Contract runtime, we not support async/await, you need use `pink.batchHttpRequest` to
+      // send http request. The Phat Contract will return an array of response.
       //
       let response = pink.batchHttpRequest(
         [
@@ -244,10 +244,10 @@ Now that the package dependencies are installed, lets build the default function
     }
     
     //
-    // Here is what you need to implemented for Phat Function, you can customize your logic with
+    // Here is what you need to implemented for Phat Contract, you can customize your logic with
     // JavaScript here.
     //
-    // The function will be called with two parameters:
+    // The Phat Contract will be called with two parameters:
     //
     // - request: The raw payload from the contract call `request` (check the `request` function in TestLensApiConsumerConract.sol).
     //            In this example, it's a tuple of two elements: [requestId, profileId]
@@ -287,7 +287,7 @@ Now that the package dependencies are installed, lets build the default function
     }
 </details>  
 
-Build the default function with this command:
+Build the default Phat Contract with this command:
 ```bash
 yarn build-function
 ```
@@ -303,7 +303,7 @@ yarn build-function
 # ✨  Done in 3.48s.
 ```
 
-With our default function built, we can run some initial tests. First test will be simple.
+With our default Phat Contract built, we can run some initial tests. First test will be simple.
 ```bash
 yarn run-function
 ```
@@ -336,14 +336,14 @@ yarn run-function -a 0x000000000000000000000000000000000000000000000000000000000
 # ✨  Done in 1.42s.
 ```
 
-We have now successfully tested the default function and ran a test to verify the function returns a response as expected.
+We have now successfully tested the default Phat Contract and ran a test to verify the function returns a response as expected.
 
-### Testing Default Function with Local Hardhat Node
+### Testing Default Phat Contract with Local Hardhat Node
 
-Previously we showed how to test the default function locally without a running node, but we can also run two other tests.
+Previously we showed how to test the default Phat Contract locally without a running node, but we can also run two other tests.
 
 1. Run the default mocha e2e tests.
-2. Run local hardhat node and watch the requests that are pushed and see how the function transforms the data.
+2. Run local hardhat node and watch the requests that are pushed and see how the Phat Contract transforms the data.
 
 **Run the default mocha e2e tests**
 
@@ -432,7 +432,7 @@ This is how the e2e mocha test will look like. You can customize this file at `.
         const reqEvents = receipt.events;
         expect(reqEvents![0]).to.have.property("event", "MessageQueued");
     
-        // Wait for Phat Function response
+        // Wait for Phat Contract response
         const respEvents = await waitForResponse(consumer, reqEvents![0])
     
         // Check response data
@@ -446,7 +446,7 @@ This is how the e2e mocha test will look like. You can customize this file at `.
 </details>
 
 
-**Run local hardhat node and watch the requests that are pushed and see how the function transforms the data**
+**Run local hardhat node and watch the requests that are pushed and see how the Phat Contract transforms the data**
 
 First we will start a local hardhat node.
 
@@ -575,9 +575,9 @@ yarn test-verify 0x090E8fDC571d65459569BC87992C1026121DB955
 ```
 
 ### Deploy Phat Contract to PoC5 Testnet
-For customizing your Phat Contract function, checkout default function [README.md](./src/README.md) and advanced configurations in [ADVANCED.md](./src/ADVANCED.md) to learn more before deploying to PoC5 testnet.
+For customizing your Phat Contract, checkout default Phat Contract [README.md](./src/README.md) and advanced configurations in [ADVANCED.md](./src/JS_API_DOC.md) to learn more before deploying to PoC5 testnet.
 
-First you will need to build your function with this command:
+First you will need to build your Phat Contract with this command:
 ```shell
 yarn build-function
 ```
@@ -592,7 +592,7 @@ yarn build-function
 #   17.66 KB  dist/index.js
 # ✨  Done in 3.71s.
 ```
-Now that are Phat Contract function has built successfully, let's deploy to Phala PoC5 Testnet with the following command:
+Now that are Phat Contract has built successfully, let's deploy to Phala PoC5 Testnet with the following command:
 ```shell
 yarn test-deploy-function
 ```
@@ -602,7 +602,7 @@ Here is the expected output:
 yarn test-deploy-function
 # yarn run v1.22.18
 # $ hardhat run --network mumbai ./scripts/mumbai/deploy-function.ts
-# We going to deploy your Phat Function to Phala Network Testnet: wss://poc5.phala.network/ws
+# We going to deploy your Phat Contract to Phala Network Testnet: wss://poc5.phala.network/ws
 # (node:12200) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Your Brick Profile contract ID: 0xfd18dca07dc76811dd99b14ee6fe3b82e135ed06a2c311b741e6c9163892b32c
@@ -622,7 +622,7 @@ yarn test-deploy-function
 #
 #   yarn test-push-request
 #
-#   You can continue update the Phat Function codes and update it with follow up commands:
+#   You can continue update the Phat Contract codes and update it with follow up commands:
 #
 #   yarn build-function
 #   WORKFLOW_ID=0 yarn test-update-function
@@ -630,7 +630,7 @@ yarn test-deploy-function
 # ✨  Done in 36.35s.
 ```
 
-Go to the [PoC5 Testnet Bricks UI](https://bricks-poc5.phala.network) Dashboard and you can see your newly deployed function.
+Go to the [PoC5 Testnet Bricks UI](https://bricks-poc5.phala.network) Dashboard and you can see your newly deployed Phat Contract.
 ![](./assets/Function-added.png)
 
 #### Interact with Consumer Contract on Polygon Mumbai
@@ -678,7 +678,7 @@ yarn test-push-request
 ```
 
 ### Update Phat Contract on Phala PoC5 Testnet
-Now let's update the function that we have deployed. Once we have updated the function, we must build the function again.
+Now let's update the Phat Contract that we have deployed. Once we have updated the Phat Contract, we must build the Phat Contract again.
 ```shell
 yarn build-function
 ```
@@ -692,9 +692,9 @@ yarn build-function
 #  17.66 KB  dist/index.js
 # ✨  Done in 3.48s.
 ```
-> Note: Before we update the function, make sure to take the `WORKFLOW_ID` from the deployment of the Phat Contract function step and set it in your `.env` file.
+> Note: Before we update the Phat Contract, make sure to take the `WORKFLOW_ID` from the deployment of the Phat Contract step and set it in your `.env` file.
 
-Now let's update the function with the following command:
+Now let's update the Phat Contract with the following command:
 ```shell
 yarn test-update-function
 ```
@@ -705,7 +705,7 @@ yarn test-update-function
 # (node:12991) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Your Brick Profile contract ID: 0xfd18dca07dc76811dd99b14ee6fe3b82e135ed06a2c311b741e6c9163892b32c
-# The Phat Function for workflow 0 has been updated.
+# The Phat Contract for workflow 0 has been updated.
 # ✨  Done in 5.07s.
 ```
 
@@ -743,9 +743,9 @@ yarn main-verify 0xbb0d733BDBe151dae3cEf8D7D63cBF74cCbf04C4
 ### Deploy Phat Contract to Phala Mainnet
 > 🚨 **WARNING** 🚨: This section is undergoing testing. Wait before an announcement to deploy to mainnet.
 > 
-For customizing your Phat Contract function, checkout default function [README.md](./src/README.md) and advanced configurations in [ADVANCED.md](./src/ADVANCED.md) to learn more before deploying to Phala Mainnet.
+For customizing your Phat Contract, checkout default Phat Contract [README.md](./src/README.md) and advanced configurations in [ADVANCED.md](./src/JS_API_DOC.md) to learn more before deploying to Phala Mainnet.
 
-First you will need to build your function with this command:
+First you will need to build your Phat Contract with this command:
 ```shell
 yarn build-function
 ```
@@ -760,7 +760,7 @@ yarn build-function
 #   17.66 KB  dist/index.js
 # ✨  Done in 3.71s.
 ```
-Now that are Phat Contract function has built successfully, let's deploy to Phala Mainnet with the following command:
+Now that are Phat Contract has built successfully, let's deploy to Phala Mainnet with the following command:
 ```shell
 yarn main-deploy-function
 ```
@@ -770,7 +770,7 @@ Here is the expected output:
 yarn main-deploy-function
 # yarn run v1.22.18
 # $ hardhat run --network polygon ./scripts/polygon/deploy-function.ts
-# We are going to deploy your Phat Function to Phala Network Mainnet:: wss://api.phala.network/ws
+# We are going to deploy your Phat Contract to Phala Network Mainnet:: wss://api.phala.network/ws
 # (node:12200) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Your Brick Profile contract ID: 0xfd18dca07dc76811dd99b14ee6fe3b82e135ed06a2c311b741e6c9163892b32c
@@ -790,7 +790,7 @@ yarn main-deploy-function
 #
 #   yarn test-push-request
 #
-#   You can continue update the Phat Function codes and update it with follow up commands:
+#   You can continue update the Phat Contract codes and update it with follow up commands:
 #
 #   yarn build-function
 #   WORKFLOW_ID=0 yarn test-update-function

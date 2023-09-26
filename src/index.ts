@@ -73,8 +73,8 @@ function fetchLensApiStats(lensApi: string, profileId: string): any {
   });
   let body = stringToHex(query);
   //
-  // In Phat Function runtime, we not support async/await, you need use `pink.batchHttpRequest` to
-  // send http request. The function will return an array of response.
+  // In Phat Contract runtime, we not support async/await, you need use `pink.batchHttpRequest` to
+  // send http request. The Phat Contract will return an array of response.
   //
   let response = pink.batchHttpRequest(
     [
@@ -119,10 +119,10 @@ function parseProfileId(hexx: string): string {
 
 
 //
-// Here is what you need to implemented for Phat Function, you can customize your logic with
+// Here is what you need to implemented for Phat Contract, you can customize your logic with
 // JavaScript here.
 //
-// The function will be called with two parameters:
+// The Phat Contract will be called with two parameters:
 //
 // - request: The raw payload from the contract call `request` (check the `request` function in TestLensApiConsumerConract.sol).
 //            In this example, it's a tuple of two elements: [requestId, profileId]

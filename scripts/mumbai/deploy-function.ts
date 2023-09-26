@@ -23,7 +23,7 @@ async function main() {
   }
 
   console.log(dedent`
-    We going to deploy your Phat Function to Phala Network Testnet: ${endpoint}
+    We going to deploy your Phat Contract to Phala Network Testnet: ${endpoint}
   `)
 
   const apiPromise = await ApiPromise.create(options({ provider: new WsProvider(endpoint), noInitWarn: true }))
@@ -111,7 +111,7 @@ async function main() {
   const { blocknum: initBlockNum } = await registry.phactory.getInfo({})
 
   await signAndSend(
-    brickProfile.tx.addWorkflow({ gasLimit: 1000000000000 }, `My Phat Function ${numberQuery.asOk.toNumber()}`, JSON.stringify(actions)),
+    brickProfile.tx.addWorkflow({ gasLimit: 1000000000000 }, `My Phat Contract ${numberQuery.asOk.toNumber()}`, JSON.stringify(actions)),
     pair
   )
 
@@ -150,7 +150,7 @@ async function main() {
 
        yarn test-push-request
 
-       You can continue update the Phat Function codes and update it with follow up commands:
+       You can continue update the Phat Contract codes and update it with follow up commands:
 
        yarn build-function
        WORKFLOW_ID=${numberQuery.asOk.toNumber()} yarn test-update-function
