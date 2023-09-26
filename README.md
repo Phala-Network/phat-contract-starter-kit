@@ -1,7 +1,35 @@
 # Phala's Oracle Starter Kit
+## Overview
 The Oracle Starter Kit is suitable to connect any API to your smart contract. It supports all EVM-compatible blockchains including Ethereum, Polygon, Arbitrum, Avalanche, Binance Smart Chain, Optimism and zkSync.
 ![](./assets/case-self-owned-oracles.jpg)
 Using this starter kit allows you to initiate the data request from smart contract side. The request is transparently sent to your script for processing. You are free to call any APIs to fulfill the request. Finally, you can freely define the response data structure that will be replied to your smart contract.
+
+## Quick Start
+First you will need to install the [@phala/fn](https://www.npmjs.com/package/@phala/fn) CLI tool using your node package manager (`npm`) or use node package execute (`npx`). In this tutorial we use `npx`.
+
+Now create your first template with the CLI tool command:
+```bash
+npx @phala/fn init example
+```
+With a template created, install the package dependencies with the following command:
+```bash
+yarn install
+```
+Build the default function with this command:
+```bash
+yarn build-function
+```
+Run the function now to simulate the expected result locally.
+```bash
+yarn run-function -a 0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000043078303100000000000000000000000000000000000000000000000000000000 https://api-mumbai.lens.dev
+```
+Now run the local end-to-end tests.
+```bash
+yarn hardhat test
+```
+Now you have successfully completed the quick start. For the next steps, you will learn how to deploy your Oracle and connect to the consumer contract for the EVM testnet chain to start testing the request-response model live.
+
+Feel free to dive into the details [here](./GETTING_STARTED.md), or continue learning about the valuable features Phat Contract can offer to your on-chain consumer contract.
 
 ## Features
 
