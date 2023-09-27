@@ -149,7 +149,7 @@ export default function main(request: HexString, settings: string): HexString {
 
   try {
     const respData = fetchApiStats(settings, parsedHexReqStr);
-    let stats = respData.data.profile.stats.totalCollects;
+    let stats = respData.data.profile.stats.totalPosts;
     console.log("response:", [TYPE_RESPONSE, requestId, stats]);
     return encodeReply([TYPE_RESPONSE, requestId, stats]);
   } catch (error) {

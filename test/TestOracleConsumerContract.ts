@@ -31,8 +31,8 @@ describe("OracleConsumerContract.sol", function () {
   it("Push and receive message", async function () {
     // Deploy the contract
     const [deployer] = await ethers.getSigners();
-    const TestLensApiConsumerContract = await ethers.getContractFactory("OracleConsumerContract.sol");
-    const consumer = await TestLensApiConsumerContract.deploy(deployer.address);
+    const TestOracleConsumerContract = await ethers.getContractFactory("OracleConsumerContract");
+    const consumer = await TestOracleConsumerContract.deploy(deployer.address);
 
     // Make a request
     const profileId = "0x01";

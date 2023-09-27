@@ -48,21 +48,27 @@ First you will need to install the [@phala/fn](https://www.npmjs.com/package/@ph
 
 Now create your first template with the CLI tool command:
 ```bash
-npx @phala/fn init example
+npx @phala/fn init userJourney
 ```
 We currently have only one template. Just press enter to see something similar to the example below:
 
 ```bash
 npx @phala/fn init example
-# ? Please select one of the templates for your "example" project: phala-oracle-consumer-contract. Polygon Consumer Contract for Phat Contract Oracle
-# Downloading the template: https://github.com/Phala-Network/phat-contract-starter-kit... ✔
-# The project is created in ~/Projects/Phala/example
+# @phala/fn@0.1.5
+# Ok to proceed? (y) y
+# ? Please select one of the templates for your "userJourney" project: lensapi-oracle-consumer-contract. Polygon Consumer Contract for LensAPI Oracle
+# Downloading the template: https://github.com/Phala-Network/lensapi-oracle-consumer-contract... ✔
+# The project is created in /Users/hashwarlock/Projects/Phala/Temp/userJourney 🎉
+# Now run:
+#
+#  cd userJourney
+#  npm install
 ```
 
 `cd` into the newly created template and `ls` the directory which will look similar to below.
 
 ```bash
-cd example
+cd userJourney
 ls
 # total 736
 # drwxr-xr-x  18 hashwarlock  staff   576B Sep  6 15:32 .
@@ -91,12 +97,20 @@ This step requires you to have a Polkadot account. You can get an account from o
 - [Talisman Wallet](https://www.talisman.xyz/)
 - [SubWallet](https://www.subwallet.app/) (**Support for iOS/Android**)
 
-First, create your Phala Profile account on the [Phala PoC5 Testnet](https://bricks-poc5.phala.network) or [Phala Mainnet](https://bricks.phala.network). Here is a quick 1 minute [YouTube video](https://youtu.be/z1MR48NYtYc) on setting up from scratch.
-
+First, create your Bricks Profile account on the [Phala PoC5 Testnet](https://bricks-poc5.phala.network) or [Phala Mainnet](https://bricks.phala.network). Here is a quick 1 minute [YouTube video](https://youtu.be/z1MR48NYtYc) on setting up from scratch.
 Here is what your Phala Profile account overview should look like:
 ![](./assets/BricksProfileCheck.png)
 
-After creating your Phala Profile, set your `.env` variable `POLKADOT_WALLET_SURI` to the mnemonic phrase from generating the new Polkadot Account. 
+#### Option 1: Export Polkadot account as json file
+Go to your browser and click on the polkadot.js extension. Select your account and click "Export Account".
+![](./assets/ExportAccount.png)
+Next, you will be prompted for your password before saving the file to your project directory. **Note** this is what will be set to [`POLKADOT_WALLET_PASSPHRASE`](./.env.local).
+![](./assets/ExportTypePass.png)
+Make sure to save the file as `polkadot-account.json`.
+![](./assets/SaveAccount.png)
+
+#### Option 2: Set mnemonic phrase to [`POLKADOT_WALLET_SURI`](./.env.local)
+After creating your Phala Profile, set your `.env` variable [`POLKADOT_WALLET_SURI`](./.env.local) to the mnemonic phrase from generating the new Polkadot Account. 
 
 Here is a screenshot of how to set `POLKADOT_WALLET_SURI`:
 ![](./assets/PolkadotAccountSuri.png)
@@ -357,7 +371,7 @@ yarn test-verify 0x090E8fDC571d65459569BC87992C1026121DB955
 ```
 
 ### Deploy Phat Contract to PoC5 Testnet
-For customizing your Phat Contract, checkout default Phat Contract [README.md](./src/README.md) and advanced configurations in [ADVANCED.md](./src/JS_API_DOC.md) to learn more before deploying to PoC5 testnet.
+For customizing your Phat Contract, checkout Phat Contract custom configurations in [JS_API_DOC.md](./src/JS_API_DOC.md) to learn more before deploying to PoC5 testnet.
 
 First you will need to build your Phat Contract with this command:
 ```shell
@@ -460,7 +474,37 @@ yarn test-push-request
 ```
 
 ### Update Phat Contract on Phala PoC5 Testnet
-Now let's update the Phat Contract that we have deployed. Once we have updated the Phat Contract, we must build the Phat Contract again.
+#### Option 1: If you exported your Polkadot account to root of project as `polkadot-account.json`
+With option 1 you are not required to rebuild the [`index.ts`](./src/index.ts) script since the `@phala/fn update` command will trigger the build for you.
+> **Note**: Set `WORKFLOW_ID` to the ID of your deployed Phat Contract. You find this in the dashboard of deployed Phat Contracts.
+
+```shell
+WORKFLOW_ID=X npx @phala/fn update -a ./polkadot.json --workflowId=$WORKFLOW_ID
+```
+After the `index.ts` is built, you will be prompted for your password, before triggering the update to your deployed Phat Contract.
+```shell
+WORKFLOW_ID=0 npx @phala/fn update -a ./polkadot-account.json --workflowId=$WORKFLOW_ID
+# Creating an optimized build... done
+# Compiled successfully.
+#
+#  17.64 KB  dist/index.js
+# Start updating...
+#
+# ? Enter hahaha account password [hidden]
+# Connecting to the endpoint: wss://poc5.phala.network/ws... ⢿
+# (node:20408) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
+# Connecting to the endpoint: wss://poc5.phala.network/ws... done
+# Querying your Brick Profile contract ID... done
+# Your Brick Profile contract ID: 0x4071788a8ce6fbab0cacea0cb1aa52853b5537db7955643e5010c22913c2b1dd
+# Checking your workflow settings... done
+# Updating... done
+# The Phat Function for workflow 1 has been updated.
+# ✨  Done in 14.80s.
+```
+Congrats! You've now successfully updated your Phat Contract!
+
+#### Option 2: Build Phat Contract script then update Phat Contract 
+With option 2, we have to update the Phat Contract that we have deployed. Once we have updated the Phat Contract, we must build the Phat Contract again.
 ```shell
 yarn build-function
 ```
@@ -474,7 +518,7 @@ yarn build-function
 #  17.66 KB  dist/index.js
 # ✨  Done in 3.48s.
 ```
-> Note: Before we update the Phat Contract, make sure to take the `WORKFLOW_ID` from the deployment of the Phat Contract step and set it in your `.env` file.
+> **Note**: Before we update the Phat Contract, make sure to take the `WORKFLOW_ID` from the deployment of the Phat Contract step and set it in your `.env` file.
 
 Now let's update the Phat Contract with the following command:
 ```shell
@@ -523,9 +567,7 @@ yarn main-verify 0xbb0d733BDBe151dae3cEf8D7D63cBF74cCbf04C4
 # Done in 8.88s.
 ```
 ### Deploy Phat Contract to Phala Mainnet
-> 🚨 **WARNING** 🚨: This section is undergoing testing. Wait before an announcement to deploy to mainnet.
-> 
-For customizing your Phat Contract, checkout default Phat Contract [README.md](./src/README.md) and advanced configurations in [ADVANCED.md](./src/JS_API_DOC.md) to learn more before deploying to Phala Mainnet.
+For customizing your Phat Contract, Phat Contract custom configurations can be found here in [JS_API_DOC.md](./src/JS_API_DOC.md) to learn more before deploying to Phala Mainnet.
 
 First you will need to build your Phat Contract with this command:
 ```shell
@@ -603,7 +645,67 @@ yarn main-push-request
 ```
 
 ### Update Phat Contract on Phala Mainnet
-TODO
+#### Option 1: If you exported your Polkadot account to root of project as `polkadot-account.json`
+With option 1 you are not required to rebuild the [`index.ts`](./src/index.ts) script since the `@phala/fn update` command will trigger the build for you.
+> **Note**: Set `WORKFLOW_ID` to the ID of your deployed Phat Contract. You find this in the dashboard of deployed Phat Contracts.
+
+```shell
+WORKFLOW_ID=X npx @phala/fn update --mode=production -a ./polkadot.json --workflowId=$WORKFLOW_ID
+```
+After the `index.ts` is built, you will be prompted for your password, before triggering the update to your deployed Phat Contract.
+```shell
+WORKFLOW_ID=0 npx @phala/fn update --mode=production -a ./polkadot-account.json  --workflowId=$WORKFLOW_ID
+# Creating an optimized build... done
+# Compiled successfully.
+#
+#  17.64 KB  dist/index.js
+# Start updating...
+#
+# ? Enter hahaha account password [hidden]
+# Connecting to the endpoint: wss://api.phala.network/ws... ⢿
+# (node:20408) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
+# Connecting to the endpoint: wss://api.phala.network/ws... done
+# Querying your Brick Profile contract ID... done
+# Your Brick Profile contract ID: 0x4071788a8ce6fbab0cacea0cb1aa52853b5537db7955643e5010c22913c2b1dd
+# Checking your workflow settings... done
+# Updating... done
+# The Phat Function for workflow 1 has been updated.
+# ✨  Done in 14.80s.
+```
+Congrats! You've now successfully updated your Phat Contract!
+
+#### Option 2: Build Phat Contract script then update Phat Contract
+With optin 2,
+update the function that we have deployed. Once we have updated the function, we must build the function again.
+```shell
+yarn build-function
+```
+```shell
+yarn build-function
+# yarn run v1.22.18
+# $ phat-fn build src/index.ts
+# Creating an optimized build... done
+# Compiled successfully.
+#
+#  17.66 KB  dist/index.js
+# ✨  Done in 3.48s.
+```
+> Note: Before we update the function, make sure to take the `WORKFLOW_ID` from the deployment of the Phat Contract function step and set it in your `.env` file.
+
+Now let's update the function with the following command:
+```shell
+yarn main-update-function
+```
+```shell
+yarn main-update-function
+# yarn run v1.22.18
+# $ hardhat run --network polygon ./scripts/polygon/update-function.ts
+# (node:12991) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Your Brick Profile contract ID: 0xfd18dca07dc76811dd99b14ee6fe3b82e135ed06a2c311b741e6c9163892b32c
+# The Phat Function for workflow 0 has been updated.
+# ✨  Done in 5.07s.
+```
 
 ## Closing
 Once you have stored, the deployed address of the Consumer Contract and set the value in the "Configure Client" section of the deployed Phala Oracle, you will now have a basic boilerplate example of how to connect your Polygon dApp to a LensAPI Oracle Blueprint. Execute a new requests and check if your configuration is correct like below:

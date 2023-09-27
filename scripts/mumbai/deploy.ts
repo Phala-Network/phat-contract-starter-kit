@@ -3,7 +3,7 @@ import "dotenv/config";
 import dedent from "dedent"
 
 async function main() {
-  const OracleConsumerContract = await ethers.getContractFactory("OracleConsumerContract.sol");
+  const OracleConsumerContract = await ethers.getContractFactory("OracleConsumerContract");
 
   const [deployer] = await ethers.getSigners();
 
