@@ -1,5 +1,7 @@
 # Connect Phala's Oracle to EVM Consumer Contract
 ![](./assets/Phat-Contract-Logo.png)
+
+### Table of Contents
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
@@ -121,171 +123,9 @@ yarn install
 # ✨  Done in 4.95s.
 ```
 
-Now that the package dependencies are installed, lets build the default Phat Contract which is located in `./src/index.ts`.
-<details>
-  <summary> View file <code>./src/index.ts</code></summary>
-    import "@phala/pink-env";
-    import { Coders } from "@phala/ethers";
+Now that the package dependencies are installed, lets build the default Phat Contract which is located in [`./src/index.ts`](./src/index.ts).
 
-    type HexString = `0x${string}`
-    
-    // eth abi coder
-    const uintCoder = new Coders.NumberCoder(32, false, "uint256");
-    const bytesCoder = new Coders.BytesCoder("bytes");
-    
-    function encodeReply(reply: [number, number, number]): HexString {
-      return Coders.encode([uintCoder, uintCoder, uintCoder], reply) as HexString;
-    }
-    
-    // Defined in TestLensOracle.sol
-    const TYPE_RESPONSE = 0;
-    const TYPE_ERROR = 2;
-    
-    enum Error {
-      BadLensProfileId = "BadLensProfileId",
-      FailedToFetchData = "FailedToFetchData",
-      FailedToDecode = "FailedToDecode",
-      MalformedRequest = "MalformedRequest",
-    }
-    
-    function errorToCode(error: Error): number {
-      switch (error) {
-        case Error.BadLensProfileId:
-          return 1;
-        case Error.FailedToFetchData:
-          return 2;
-        case Error.FailedToDecode:
-          return 3;
-        case Error.MalformedRequest:
-          return 4;
-        default:
-          return 0;
-      }
-    }
-    
-    function isHexString(str: string): boolean {
-      const regex = /^0x[0-9a-f]+$/;
-      return regex.test(str.toLowerCase());
-    }
-    
-    function stringToHex(str: string): string {
-      var hex = "";
-      for (var i = 0; i < str.length; i++) {
-        hex += str.charCodeAt(i).toString(16);
-      }
-      return "0x" + hex;
-    }
-    
-    function fetchLensApiStats(lensApi: string, profileId: string): any {
-      // profile_id should be like 0x0001
-      let headers = {
-        "Content-Type": "application/json",
-        "User-Agent": "phat-contract",
-      };
-      let query = JSON.stringify({
-        query: `query Profile {
-                profile(request: { profileId: \"${profileId}\" }) {
-                    stats {
-                        totalFollowers
-                        totalFollowing
-                        totalPosts
-                        totalComments
-                        totalMirrors
-                        totalPublications
-                        totalCollects
-                    }
-                }
-            }`,
-      });
-      let body = stringToHex(query);
-      //
-      // In Phat Contract runtime, we not support async/await, you need use `pink.batchHttpRequest` to
-      // send http request. The Phat Contract will return an array of response.
-      //
-      let response = pink.batchHttpRequest(
-        [
-          {
-            url: lensApi,
-            method: "POST",
-            headers,
-            body,
-            returnTextBody: true,
-          },
-        ],
-        2000
-      )[0];
-      if (response.statusCode !== 200) {
-        console.log(
-          `Fail to read Lens api with status code: ${response.statusCode}, error: ${
-            response.error || response.body
-          }}`
-        );
-        throw Error.FailedToFetchData;
-      }
-      let respBody = response.body;
-      if (typeof respBody !== "string") {
-        throw Error.FailedToDecode;
-      }
-      return JSON.parse(respBody);
-    }
-    
-    function parseProfileId(hexx: string): string {
-      var hex = hexx.toString();
-      if (!isHexString(hex)) {
-        throw Error.BadLensProfileId;
-      }
-      hex = hex.slice(2);
-      var str = "";
-      for (var i = 0; i < hex.length; i += 2) {
-        const ch = String.fromCharCode(parseInt(hex.substring(i, i + 2), 16));
-        str += ch;
-      }
-      return str;
-    }
-    
-    //
-    // Here is what you need to implemented for Phat Contract, you can customize your logic with
-    // JavaScript here.
-    //
-    // The Phat Contract will be called with two parameters:
-    //
-    // - request: The raw payload from the contract call `request` (check the `request` function in TestLensApiConsumerConract.sol).
-    //            In this example, it's a tuple of two elements: [requestId, profileId]
-    // - settings: The custom settings you set with the `config_core` function of the Action Offchain Rollup Phat Contract. In
-    //            this example, it just a simple text of the lens api url prefix.
-    //
-    // Your returns value MUST be a hex string, and it will send to your contract directly. Check the `_onMessageReceived` function in
-    // TestLensApiConsumerContract.sol for more details. We suggest a tuple of three elements: [successOrNotFlag, requestId, data] as
-    // the return value.
-    //
-    export default function main(request: HexString, settings: string): HexString {
-      console.log(`handle req: ${request}`);
-      let requestId, encodedProfileId;
-      try {
-        [requestId, encodedProfileId] = Coders.decode([uintCoder, bytesCoder], request);
-      } catch (error) {
-        console.info("Malformed request received");
-        return encodeReply([TYPE_ERROR, 0, errorToCode(error as Error)]);
-      }
-      const profileId = parseProfileId(encodedProfileId as string);
-      console.log(`Request received for profile ${profileId}`);
-    
-      try {
-        const respData = fetchLensApiStats(settings, profileId);
-        let stats = respData.data.profile.stats.totalCollects;
-        console.log("response:", [TYPE_RESPONSE, requestId, stats]);
-        return encodeReply([TYPE_RESPONSE, requestId, stats]);
-      } catch (error) {
-        if (error === Error.FailedToFetchData) {
-          throw error;
-        } else {
-          // otherwise tell client we cannot process it
-          console.log("error:", [TYPE_ERROR, requestId, error]);
-          return encodeReply([TYPE_ERROR, requestId, errorToCode(error as Error)]);
-        }
-      }
-    }
-</details>  
+For those want to understand what the contents of `./src/index.ts` mean, go to the `PHAT_CONTRACT_INFO.md` file to read more. If you are already familiar with the concepts then you can proceed to with the deployment process. 
 
 Build the default Phat Contract with this command:
 ```bash
@@ -377,7 +217,7 @@ You will now see that all test cases have passed.
 yarn hardhat test
 # Compiled 14 Solidity files successfully
 #
-#  TestLensApiConsumerContract
+#  OracleConsumerContract.sol
 #    ✔ Push and receive message (1664ms)
 #
 #  1 passing (2s)
@@ -385,9 +225,9 @@ yarn hardhat test
 # ✨  Done in 3.29s.
 ```
 
-This is how the e2e mocha test will look like. You can customize this file at `./test/TestLensApiConsumerContract.ts`.
+This is how the e2e mocha test will look like. You can customize this file at `./test/OracleConsumerContract.ts`.
 <details>
-  <summary>View file <code>TestLensApiConsumerContract.ts</code></summary>
+  <summary>View file <code>OracleConsumerContract.ts</code></summary>
 
     import { expect } from "chai";
     import { type Contract, type Event } from "ethers";
@@ -418,12 +258,12 @@ This is how the e2e mocha test will look like. You can customize this file at `.
       return receipt.events;
     }
     
-    describe("TestLensApiConsumerContract", function () {
+    describe("OracleConsumerContract", function () {
       it("Push and receive message", async function () {
         // Deploy the contract
         const [deployer] = await ethers.getSigners();
-        const TestLensApiConsumerContract = await ethers.getContractFactory("TestLensApiConsumerContract");
-        const consumer = await TestLensApiConsumerContract.deploy(deployer.address);
+        const OracleConsumerContract = await ethers.getContractFactory("OracleConsumerContract");
+        const consumer = await OracleConsumerContract.deploy(deployer.address);
     
         // Make a request
         const profileId = "0x01";
@@ -482,13 +322,13 @@ yarn localhost-deploy
 Make sure to copy the deployed contract address when you deploy your own contract locally. Note you contract address will be different than `0x0165878A594ca255338adfa4d48449f69242Eb8F`. We will now start watching the hardhat node deployed contract for any new requests.
 
 ```bash
-yarn localhost-watch 0x0165878A594ca255338adfa4d48449f69242Eb8F artifacts/contracts/TestLensApiConsumerContract.sol/TestLensApiConsumerContract.json dist/index.js -a https://api-mumbai.lens.dev/
+yarn localhost-watch 0x0165878A594ca255338adfa4d48449f69242Eb8F artifacts/contracts/OracleConsumerContract.sol/OracleConsumerContract.sol.json dist/index.js -a https://api-mumbai.lens.dev/
 ```
 
 ```bash
-yarn localhost-watch 0x0165878A594ca255338adfa4d48449f69242Eb8F artifacts/contracts/TestLensApiConsumerContract.sol/TestLensApiConsumerContract.json dist/index.js -a https://api-mumbai.lens.dev/
-# $ phat-fn watch 0x0165878A594ca255338adfa4d48449f69242Eb8F artifacts/contracts/TestLensApiConsumerContract.sol/TestLensApiConsumerContract.json dist/index.js -a https://api-mumbai.lens.dev/
-# Listening for TestLensApiConsumerContract MessageQueued events...
+yarn localhost-watch 0x0165878A594ca255338adfa4d48449f69242Eb8F artifacts/contracts/OracleConsumerContract.sol.sol/OracleConsumerContract.sol.json dist/index.js -a https://api-mumbai.lens.dev/
+# $ phat-fn watch 0x0165878A594ca255338adfa4d48449f69242Eb8F artifacts/contracts/OracleConsumerContract.sol/OracleConsumerContract.sol.json dist/index.js -a https://api-mumbai.lens.dev/
+# Listening for OracleConsumerContract.sol MessageQueued events...
 ```
 
 Let’s now make a new request and see what happens with the listener’s output. In separate tab, you will push a request with the following.
@@ -511,7 +351,7 @@ LOCALHOST_CONSUMER_CONTRACT_ADDRESS=0x0165878A594ca255338adfa4d48449f69242Eb8F y
 If we look back at the listener tab, we will see output has been appended.
 
 ```typescript
-Listening for TestLensApiConsumerContract MessageQueued events...
+Listening for OracleConsumerContract MessageQueued events...
 Received event [MessageQueued]: {
   tail: 0n,
   data: '0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000043078303100000000000000000000000000000000000000000000000000000000'
@@ -566,10 +406,10 @@ yarn test-verify 0x090E8fDC571d65459569BC87992C1026121DB955
 # Nothing to compile
 # No need to generate any newer typings.
 # Successfully submitted source code for contract
-# contracts/TestLensApiConsumerContract.sol:TestLensApiConsumerContract at 0x090E8fDC571d65459569BC87992C1026121DB955
+# contracts/OracleConsumerContract.sol:OracleConsumerContract.sol at 0x090E8fDC571d65459569BC87992C1026121DB955
 # for verification on the block explorer. Waiting for verification result...
 #
-# Successfully verified contract TestLensApiConsumerContract on Etherscan.
+# Successfully verified contract OracleConsumerContract.sol on Etherscan.
 # https://mumbai.polygonscan.com/address/0x090E8fDC571d65459569BC87992C1026121DB955#code
 # ✨  Done in 5.91s.
 ```
@@ -733,10 +573,10 @@ yarn main-verify 0xbb0d733BDBe151dae3cEf8D7D63cBF74cCbf04C4
 # Nothing to compile
 # No need to generate any newer typings.
 # Successfully submitted source code for contract
-# contracts/TestLensApiConsumerContract.sol.sol:TestLensApiConsumerContract.sol.sol at 0xbb0d733BDBe151dae3cEf8D7D63cBF74cCbf04C4
+# contracts/OracleConsumerContract.sol.sol:OracleConsumerContract.sol.sol.sol at 0xbb0d733BDBe151dae3cEf8D7D63cBF74cCbf04C4
 # for verification on the block explorer. Waiting for verification result...
 #
-# Successfully verified contract TestLensApiConsumerContract.sol on Etherscan.
+# Successfully verified contract OracleConsumerContract.sol on Etherscan.
 # https://polygonscan.com/address/0xbb0d733BDBe151dae3cEf8D7D63cBF74cCbf04C4#code
 # Done in 8.88s.
 ```

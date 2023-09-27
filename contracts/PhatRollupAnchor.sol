@@ -211,7 +211,7 @@ abstract contract PhatRollupAnchor is ReentrancyGuard, MetaTxReceiver, AccessCon
 
     /// Pushes a request to the queue waiting for the Phat Contract to process
     ///
-    /// Returns the index of the reqeust.
+    /// Returns the index of the request.
     function _pushMessage(bytes memory data) internal returns (uint32) {
         uint32 tail = queueGetUint(KEY_TAIL);
         bytes memory itemKey = abi.encode(tail);

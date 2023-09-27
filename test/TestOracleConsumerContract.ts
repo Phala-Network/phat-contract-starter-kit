@@ -27,11 +27,11 @@ async function waitForResponse(consumer: Contract, event: Event) {
   return receipt.events;
 }
 
-describe("TestLensApiConsumerContract", function () {
+describe("OracleConsumerContract.sol", function () {
   it("Push and receive message", async function () {
     // Deploy the contract
     const [deployer] = await ethers.getSigners();
-    const TestLensApiConsumerContract = await ethers.getContractFactory("TestLensApiConsumerContract");
+    const TestLensApiConsumerContract = await ethers.getContractFactory("OracleConsumerContract.sol");
     const consumer = await TestLensApiConsumerContract.deploy(deployer.address);
 
     // Make a request
