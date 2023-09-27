@@ -35,7 +35,7 @@ This project represents a basic EVM Consumer Contract that is compatible with a 
 - RPC Endpoint for EVM Chain Mainnet & EVM Chain Testnet
   - [Alchemy](https://alchemy.com) - This repo example uses Alchemy's API Key.
   - [Infura](https://infura.io)
-  - Personal RPC Node (Ex. [ProjectPi](TODO))
+  - Personal RPC Node (Ex. [ProjectPi](https://hub.projectpi.xyz/))
 - Polkadot Account for Phala PoC5 Testnet and Mainnet deployment
 
 ### Environment Variables:
