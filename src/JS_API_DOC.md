@@ -35,8 +35,8 @@ We currently have only one template. Just press enter to see something similar t
 
 ```bash
 npx @phala/fn init example
-# ? Please select one of the templates for your "example" project: lensapi-oracle-consumer-contract. Polygon Consumer Contract for LensAPI Oracle
-# Downloading the template: https://github.com/Phala-Network/lensapi-oracle-consumer-contract... ✔
+# ? Please select one of the templates for your "example" project: phala-oracle-consumer-contract. Polygon Consumer Contract for LensAPI Oracle
+# Downloading the template: https://github.com/Phala-Network/phala-oracle-consumer-contract... ✔
 # The project is created in ~/Projects/Phala/example
 ```
 
@@ -71,9 +71,9 @@ cd src
 ```
 
 ### Available Capabilities of `@phala/pink-env`
-In the `README.md` we introduced the basic functionality of making a single HTTP request to Lens API. The example code can be seen below:
+In the `GETTING_STARTED.md` we introduced the basic functionality of making a single HTTP request to Lens API. The example code can be seen below:
 ```typescript
-function fetchLensApiStats(lensApi: string, profileId: string): any {
+function fetchApiStats(lensApi: string, profileId: string): any {
   // profile_id should be like 0x0001
   let headers = {
     "Content-Type": "application/json",

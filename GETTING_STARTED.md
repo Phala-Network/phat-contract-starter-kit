@@ -54,8 +54,8 @@ We currently have only one template. Just press enter to see something similar t
 
 ```bash
 npx @phala/fn init example
-# ? Please select one of the templates for your "example" project: lensapi-oracle-consumer-contract. Polygon Consumer Contract for LensAPI Oracle
-# Downloading the template: https://github.com/Phala-Network/lensapi-oracle-consumer-contract... ✔
+# ? Please select one of the templates for your "example" project: phala-oracle-consumer-contract. Polygon Consumer Contract for Phat Contract Oracle
+# Downloading the template: https://github.com/Phala-Network/phat-contract-starter-kit... ✔
 # The project is created in ~/Projects/Phala/example
 ```
 
@@ -225,65 +225,7 @@ yarn hardhat test
 # ✨  Done in 3.29s.
 ```
 
-This is how the e2e mocha test will look like. You can customize this file at `./test/OracleConsumerContract.ts`.
-<details>
-  <summary>View file <code>OracleConsumerContract.ts</code></summary>
-
-    import { expect } from "chai";
-    import { type Contract, type Event } from "ethers";
-    import { ethers } from "hardhat";
-    import { execSync } from "child_process";
-    
-    async function waitForResponse(consumer: Contract, event: Event) {
-      const [, data] = event.args!;
-      // Run Phat Function
-      const result = execSync(`phat-fn run --json dist/index.js -a ${data} https://api-mumbai.lens.dev/`).toString();
-      const json = JSON.parse(result);
-      const action = ethers.utils.hexlify(ethers.utils.concat([
-        new Uint8Array([0]),
-        json.output,
-      ]));
-      // Make a response
-      const tx = await consumer.rollupU256CondEq(
-        // cond
-        [],
-        [],
-        // updates
-        [],
-        [],
-        // actions
-        [action],
-      );
-      const receipt = await tx.wait();
-      return receipt.events;
-    }
-    
-    describe("OracleConsumerContract", function () {
-      it("Push and receive message", async function () {
-        // Deploy the contract
-        const [deployer] = await ethers.getSigners();
-        const OracleConsumerContract = await ethers.getContractFactory("OracleConsumerContract");
-        const consumer = await OracleConsumerContract.deploy(deployer.address);
-    
-        // Make a request
-        const profileId = "0x01";
-        const tx = await consumer.request(profileId);
-        const receipt = await tx.wait();
-        const reqEvents = receipt.events;
-        expect(reqEvents![0]).to.have.property("event", "MessageQueued");
-    
-        // Wait for Phat Contract response
-        const respEvents = await waitForResponse(consumer, reqEvents![0])
-    
-        // Check response data
-        expect(respEvents[0]).to.have.property("event", "ResponseReceived");
-        const [reqId, input, value] = respEvents[0].args;
-        expect(ethers.BigNumber.isBigNumber(reqId)).to.be.true;
-        expect(input).to.equal(profileId);
-        expect(ethers.BigNumber.isBigNumber(value)).to.be.true;
-      });
-    });
-</details>
+This is how the e2e mocha test will look like. You can customize this file at [`OracleConsumerContract.ts`](./test/OracleConsumerContract.ts).
 
 
 **Run local hardhat node and watch the requests that are pushed and see how the Phat Contract transforms the data**
@@ -307,7 +249,7 @@ yarn hardhat node
 	# Any funds sent to them on Mainnet or any other live network WILL BE LOST.
 </details>
 
-With our hardhat node running locally, we can now deploy the `LensApiConsumerContract.sol` contract to the local hardhat network.
+With our hardhat node running locally, we can now deploy the `OracleConsumerContract.sol` contract to the local hardhat network.
 ```bash
 yarn localhost-deploy 
 ```
@@ -452,7 +394,7 @@ yarn test-deploy-function
 #
 #   You also need set up the attestor to your .env file:
 #
-#   MUMBAI_LENSAPI_ORACLE_ENDPOINT=0x1f6911eaa71405eb043961c0ba4bb6ed7ecc5c8e
+#   MUMBAI_PHALA_ORACLE_ATTESTOR=0x1f6911eaa71405eb043961c0ba4bb6ed7ecc5c8e
 #
 #   Then run:
 #
@@ -620,7 +562,7 @@ yarn main-deploy-function
 #
 #   You also need set up the attestor to your .env file:
 #
-#   POLYGON_LENSAPI_ORACLE_ENDPOINT=0x1f6911eaa71405eb043961c0ba4bb6ed7ecc5c8e
+#   POLYGON_PHALA_ORACLE_ATTESTOR=0x1f6911eaa71405eb043961c0ba4bb6ed7ecc5c8e
 #
 #   Then run:
 #
@@ -664,5 +606,5 @@ yarn main-push-request
 TODO
 
 ## Closing
-Once you have stored, the deployed address of the Consumer Contract and set the value in the "Configure Client" section of the deployed LensAPI Oracle, you will now have a basic boilerplate example of how to connect your Polygon dApp to a LensAPI Oracle Blueprint. Execute a new requests and check if your configuration is correct like below:
+Once you have stored, the deployed address of the Consumer Contract and set the value in the "Configure Client" section of the deployed Phala Oracle, you will now have a basic boilerplate example of how to connect your Polygon dApp to a LensAPI Oracle Blueprint. Execute a new requests and check if your configuration is correct like below:
 ![](./assets/polygonscan-ex.png)

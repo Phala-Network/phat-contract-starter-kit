@@ -1,5 +1,5 @@
 import "dotenv/config";
 
 module.exports = [
-    process.env.POLYGON_LENSAPI_ORACLE_ENDPOINT,
+    process.env.POLYGON_PHALA_ORACLE_ATTESTOR,
 ];

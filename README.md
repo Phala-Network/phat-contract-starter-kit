@@ -1,37 +1,41 @@
-# Phala's Oracle Starter Kit
+# Harnessing the Power of Phat Contract Starter Kit
+> <u>*Note on Terminology*</u>
+> 
+> **Phat Contract** will be referred to as the **Phala Oracle** in this `README`. 
 ## Overview
-The Oracle Starter Kit is suitable to connect any API to your smart contract. It supports all EVM-compatible blockchains including Ethereum, Polygon, Arbitrum, Avalanche, Binance Smart Chain, Optimism and zkSync.
+The Phat Contract Starter Kit is your one-stop solution to connect any API to your smart contract. It offers wide-ranging support for all EVM-compatible blockchains, including but not limited to Ethereum, Polygon, Arbitrum, Avalanche, Binance Smart Chain, Optimism, and zkSync.
+
 ![](./assets/case-self-owned-oracles.jpg)
-Using this starter kit allows you to initiate the data request from smart contract side. The request is transparently sent to your script for processing. You are free to call any APIs to fulfill the request. Finally, you can freely define the response data structure that will be replied to your smart contract.
 
+This starter kit empowers you to initiate the data request from the smart contract side. The request is then seamlessly sent to your script for processing. You have the liberty to call any APIs to fulfill the request and define the response data structure that will be replied to your smart contract.
 ## Quick Start
-First you will need to install the [@phala/fn](https://www.npmjs.com/package/@phala/fn) CLI tool using your node package manager (`npm`) or use node package execute (`npx`). In this tutorial we use `npx`.
+To kickstart your journey with the Phat Contract Starter Kit, you will first need to install the [@phala/fn](https://www.npmjs.com/package/@phala/fn) CLI tool. You can do this using your node package manager (`npm`) or use node package execute (`npx`). For the purpose of this tutorial, we will be using `npx`.
 
-Now create your first template with the CLI tool command:
+Once you have the CLI tool installed, you can create your first Phala Oracle template with the following command:
 ```bash
 npx @phala/fn init example
 ```
-With a template created, install the package dependencies with the following command:
+After creating a Phala Oracle template, it's time to install the package dependencies. You can do this with the following command:
 ```bash
 yarn install
 ```
-Build the default function with this command:
+Now, build the default Phala Oracle function with this command:
 ```bash
 yarn build-function
 ```
-Run the function now to simulate the expected result locally.
+To simulate the expected result locally, run the Phala Oracle function now with this command:
 ```bash
 yarn run-function -a 0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000043078303100000000000000000000000000000000000000000000000000000000 https://api-mumbai.lens.dev
 ```
-Now run the local end-to-end tests.
+Finally, run the local end-to-end tests with this command:
 ```bash
 yarn hardhat test
 ```
-Now you have successfully completed the quick start. For the next steps, you will learn how to deploy your Oracle and connect to the consumer contract for the EVM testnet chain to start testing the request-response model live.
+Congratulations! You have successfully completed the quick start. For the next steps, you will learn how to deploy your Phala Oracle and connect to the consumer contract for the EVM testnet chain to start testing the request-response model live.
 
-Feel free to dive into the details [here](./GETTING_STARTED.md), or continue learning about the valuable features Phat Contract can offer to your on-chain consumer contract.
+For a deeper dive into the details, click [here](./GETTING_STARTED.md),  or continue reading to learn about the valuable features the Phala Oracle can offer to your on-chain consumer contract.
 
-## Features
+## Features and Benefits
 
 - Wide support for all mainstream blockchains
 - **Verifiable and decentralized**: every Oracle is running on decentralized infrastructure that require no operations and can be easily verified

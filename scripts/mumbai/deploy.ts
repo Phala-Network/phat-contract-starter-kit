@@ -3,13 +3,13 @@ import "dotenv/config";
 import dedent from "dedent"
 
 async function main() {
-  const TestLensApiConsumerContract = await ethers.getContractFactory("OracleConsumerContract.sol");
+  const OracleConsumerContract = await ethers.getContractFactory("OracleConsumerContract.sol");
 
   const [deployer] = await ethers.getSigners();
 
   console.log('Deploying...');
-  const attestor = process.env['MUMBAI_LENSAPI_ORACLE_ENDPOINT'] || deployer.address;  // When deploy for real e2e test, change it to the real attestor wallet.
-  const consumer = await TestLensApiConsumerContract.deploy(attestor);
+  const attestor = process.env['MUMBAI_PHALA_ORACLE_ATTESTOR'] || deployer.address;  // When deploy for real e2e test, change it to the real attestor wallet.
+  const consumer = await OracleConsumerContract.deploy(attestor);
   await consumer.deployed();
   const finalMessage = dedent`
     🎉 Your Consumer Contract has been deployed, check it out here: https://mumbai.polygonscan.com/address/${consumer.address}

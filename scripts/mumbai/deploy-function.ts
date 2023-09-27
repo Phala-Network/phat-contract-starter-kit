@@ -140,7 +140,7 @@ async function main() {
 
        You also need to set up the attestor in your .env file:
 
-       MUMBAI_LENSAPI_ORACLE_ENDPOINT=${attestor}
+       MUMBAI_PHALA_ORACLE_ATTESTOR=${attestor}
 
        Then run:
 

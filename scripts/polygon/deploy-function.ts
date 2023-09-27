@@ -140,7 +140,7 @@ async function main() {
 
        You also need to set up the attestor in your .env file:
 
-       POLYGON_LENSAPI_ORACLE_ENDPOINT=${attestor}
+       POLYGON_PHALA_ORACLE_ATTESTOR=${attestor}
 
        Then run:
 
