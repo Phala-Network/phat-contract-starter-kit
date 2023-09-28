@@ -39,7 +39,8 @@ contract OracleConsumerContract is PhatRollupAnchor, Ownable {
     }
 
     function _onMessageReceived(bytes calldata action) internal override {
-        require(action.length == 32 * 3, "cannot parse action");
+        // Optional to check length of action
+        // require(action.length == 32 * 3, "cannot parse action");
         (uint respType, uint id, uint256 data) = abi.decode(
             action,
             (uint, uint, uint256)
