@@ -10,11 +10,11 @@ typechain-types
 # Editor-based HTTP Client requests
 /httpRequests/
 
-
-#Hardhat files
+# Hardhat files
 cache
 artifacts
 
-
+# Phat
+.phat
 dist
 polkadot-account.json
