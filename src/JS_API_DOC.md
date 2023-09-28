@@ -606,8 +606,15 @@ export default function main() {
 }
 ```
 How the Solidity consumer contract handles the decoding:
-```typescript
-
+```solidity
+function _onMessageReceived(bytes calldata action) internal override {
+    // Optional to check length of action
+    // require(action.length == 32 * 3, "cannot parse action");
+    (bytes16 bytesResp, bytes16 bytes16Resp, uint null) = abi.decode(
+        action,
+        (bytes16, bytes16, uint)
+    );
+}
 ```
 
 ## Closing

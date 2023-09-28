@@ -23,10 +23,10 @@
     "localhost-deploy": "hardhat run --network localhost ./scripts/localhost/deploy.ts",
     "localhost-watch": "phat-fn watch",
     "localhost-push-request": "hardhat run --network localhost ./scripts/localhost/push-request.ts",
-    "test-deploy-function": "hardhat run --network mumbai ./scripts/mumbai/deploy-function.ts",
-    "main-deploy-function": "hardhat run --network polygon ./scripts/polygon/deploy-function.ts",
-    "test-update-function": "hardhat run --network mumbai ./scripts/mumbai/update-function.ts",
-    "main-update-function": "hardhat run --network polygon ./scripts/polygon/update-function.ts"
+    "test-deploy-function": "phat-fn upload",
+    "main-deploy-function": "phat-fn upload --mode=production",
+    "test-update-function": "phat-fn update",
+    "main-update-function": "phat-fn update --mode=production"
   },
   "devDependencies": {
     "@ethersproject/abi": "^5.4.7",
@@ -53,7 +53,7 @@
   "dependencies": {
     "@openzeppelin/contracts": "4.9.3",
     "@phala/ethers": "^6.6.3",
-    "@phala/fn": "^0.1.5",
+    "@phala/fn": "^0.1.6",
     "@phala/pink-env": "^1.0.10",
     "@phala/sdk": "^0.5.2",
     "dedent": "^1.5.1",

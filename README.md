@@ -14,23 +14,24 @@ To kickstart your journey with the Phat Contract Starter Kit, you have 2 options
   ![](./assets/UseThisTemplate.png)
 2. Install the `@phala/fn` CLI tool. You can do this using your node package manager (`npm`) or use node package execute (`npx`). For the purpose of this tutorial, we will be using `npx`.
 
-Once you have the CLI tool installed, you can create your first Phala Oracle template with the following command...
-
-:stop_sign: Not so fast! What is it exactly that we are building? :stop_sign:
-
-**What are we building?** 
-
-The artifact we are compiling is a JavaScript file, serving as the Phat Contract Oracle's tailored logic. This script is designed to respond to requests initiated from the Consumer Contract. The diagram provided above offers a visual representation of this request-response interaction.
-
-**Why is it important?**
-
-In the context of the off-chain environment, on-chain Smart Contracts are inherently limited. Their functionality is confined to the information available to them within the on-chain ecosystem. This limitation underscores the critical need for a secure off-chain oracle, such as the Phat Contract. This oracle is capable of fetching and transforming data, thereby enhancing the intelligence and awareness of Smart Contracts about on-chain activities. This is a pivotal step towards bridging the gap between the on-chain and off-chain worlds, making Smart Contracts not just smart, but also informed.
-
-After creating a Phala Oracle template, cd into the new project and install the package dependencies. You can do this with the following command:
+(Option 2) Once you have the CLI tool installed, you can create your first Phala Oracle template with the following command.
 ```bash
+# Skip this step if chose option 1 or cloned this repo
 npx @phala/fn init example
 ```
-After creating a Phat Contract template, it's time to install the package dependencies. You can do this with the following command:
+
+:stop_sign: **Not so fast!** What is it exactly that we are building? :stop_sign:
+
+> **What are we building?** 
+>
+> The artifact we are compiling is a JavaScript file, serving as the Phat Contract Oracle's tailored logic. This script is designed to respond to requests initiated from the Consumer Contract. The diagram provided above offers a visual representation of this request-response interaction.
+> 
+> **Why is it important?**
+>
+> In the context of the off-chain environment, on-chain Smart Contracts are inherently limited. Their functionality is confined to the information available to them within the on-chain ecosystem. This limitation underscores the critical need for a secure off-chain oracle, such as the Phat Contract. This oracle is capable of fetching and transforming data, thereby enhancing the intelligence and awareness of Smart Contracts about on-chain activities. This is a pivotal step towards bridging the gap between the on-chain and off-chain worlds, making Smart Contracts not just smart, but also informed.
+>
+
+After creating a Phala Oracle template, `cd` into the new project and install the package dependencies. You can do this with the following command:
 ```bash
 yarn install
 ```
@@ -100,10 +101,10 @@ You could use the Oracle to:
 - **[Dynamic NFTs](https://github.com/keshavsharma25/PokeLens-Contract)**
 
 ## :books: Resources
-- **[What’s Oracle](https://ethereum.org/en/developers/docs/oracles/)**
+- **[What is an Oracle](https://ethereum.org/en/developers/docs/oracles/)**
 - **Frontend Templates**
   - **[Scaffold ETH2](https://github.com/scaffold-eth/scaffold-eth-2)**
     - **[Phat Scaffold ETH2](https://github.com/HashWarlock/phat-scaffold-eth)**
   - **[Create ETH App](https://github.com/paulrberg/create-eth-app)**
   - **[Nexth Starter Kit](https://nexth.vercel.app/)**
-- **[Technical design doc](https://github.com/Phala-Network/phat-offchain-rollup)**
+- **[Technical Design Doc](https://github.com/Phala-Network/phat-offchain-rollup)**
