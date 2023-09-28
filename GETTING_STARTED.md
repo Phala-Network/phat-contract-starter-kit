@@ -54,7 +54,7 @@ npx @phala/fn init userJourney
 We currently have only one template. Just press enter to see something similar to the example below:
 
 ```bash
-npx @phala/fn init example
+npx @phala/fn init userJourney
 # @phala/fn@0.1.5
 # Ok to proceed? (y) y
 # ? Please select one of the templates for your "userJourney" project: lensapi-oracle-consumer-contract. Polygon Consumer Contract for LensAPI Oracle
