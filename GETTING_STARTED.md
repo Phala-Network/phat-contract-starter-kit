@@ -50,15 +50,16 @@ First you will need to install the [@phala/fn](https://www.npmjs.com/package/@ph
 Now create your first template with the CLI tool command:
 ```bash
 npx @phala/fn init userJourney
+# ? Please select one of the templates for your "userJourney" project: (Use arrow keys)
+# ❯ phat-contract-starter-kit. The Phat Contract Starter Kit
+#   lensapi-oracle-consumer-contract. Polygon Consumer Contract for LensAPI Oracle
 ```
-We currently have only one template. Just press enter to see something similar to the example below:
+Choose `phat-contract-starter-kit` template and press enter to see something similar to the example below:
 
 ```bash
 npx @phala/fn init userJourney
-# @phala/fn@0.1.5
-# Ok to proceed? (y) y
-# ? Please select one of the templates for your "userJourney" project: lensapi-oracle-consumer-contract. Polygon Consumer Contract for LensAPI Oracle
-# Downloading the template: https://github.com/Phala-Network/lensapi-oracle-consumer-contract... ✔
+# ? Please select one of the templates for your "userJourney" project: phat-contract-starter-kit. The Phat Contract Starter Kit
+# Downloading the template: https://github.com/Phala-Network/phat-contract-starter-kit... ✔
 # The project is created in /Users/hashwarlock/Projects/Phala/Temp/userJourney 🎉
 # Now run:
 #
@@ -78,7 +79,6 @@ ls
 # -rw-r--r--   1 hashwarlock  staff   227B Sep  6 15:32 .gitignore
 # -rw-r--r--   1 hashwarlock  staff    34K Sep  6 15:32 LICENSE
 # -rw-r--r--   1 hashwarlock  staff   8.9K Sep  6 15:32 README.md
-# drwxr-xr-x   5 hashwarlock  staff   160B Sep  6 15:32 abis
 # drwxr-xr-x   4 hashwarlock  staff   128B Sep  6 15:32 assets
 # drwxr-xr-x   5 hashwarlock  staff   160B Sep  6 15:32 contracts
 # -rw-r--r--   1 hashwarlock  staff   1.3K Sep  6 15:32 hardhat.config.ts
@@ -105,7 +105,7 @@ Here is what your Phala Profile account overview should look like:
 #### Option 1: Export Polkadot account as json file
 Go to your browser and click on the polkadot.js extension. Select your account and click "Export Account".
 ![](./assets/ExportAccount.png)
-Next, you will be prompted for your password before saving the file to your project directory. **Note** this is what will be set to [`POLKADOT_WALLET_PASSPHRASE`](./.env.local).
+Next, you will be prompted for your password before saving the file to your project directory. **Note** this is what will be set to [`POLKADOT_WALLET_ACCOUNT_PASSWORD`](./.env.local).
 ![](./assets/ExportTypePass.png)
 Make sure to save the file as `polkadot-account.json` in the root of your project directory.
 ![](./assets/SaveAccount.png)
@@ -367,7 +367,7 @@ yarn test-deploy
 # Done
 # ✨  Done in 8.20s.
 ```
-#### Verify Contract on Polygon Mumbai Testnet
+#### Verify Contract on Polygon Mumbai Testnet (Optional)
 Ensure to update the [`mumbai.arguments.ts`](./mumbai.arguments.ts) file with the constructor arguments used to instantiate the Consumer Contract. If you add additional parameters to the constructor function then make sure to update the `mumbai.arguments.ts` file.
 > **Note**: Your contract address will be different than `0x090E8fDC571d65459569BC87992C1026121DB955` when verifying your contract. Make sure to get your actual contract address from the console log output after executing `yarn test-deploy`.
 ```shell
@@ -429,6 +429,8 @@ Go to the [PoC5 Testnet Bricks UI](https://bricks-poc5.phala.network) Dashboard 
 
 #### Interact with Consumer Contract on Polygon Mumbai
 Test Consumer Contract on Mumbai with a few tests to check for malformed requests failures, successful requests, and set the attestor.
+
+**Please make sure your have set your attestor address in .env file `MUMBAI_PHALA_ORACLE_ATTESTOR=`**
 ```shell
 yarn test-set-attestor
 ```
