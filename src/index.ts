@@ -30,7 +30,7 @@ const addressCoder = new Coders.AddressCoder("address");
 const stringCoder = new Coders.StringCoder("string");
 const stringArrayCoder = new Coders.ArrayCoder(stringCoder, 10, "string[]");
 function encodeReply(reply: [number, number, string[]]): HexString {
-  return Coders.encode([uintCoder, uintCoder, uintCoder], reply) as HexString;
+  return Coders.encode([uintCoder, uintCoder, stringArrayCoder], reply) as HexString;
 }
 
 export default function main(request: HexString, settings: string): HexString {

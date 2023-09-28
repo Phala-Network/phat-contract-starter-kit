@@ -54,7 +54,7 @@ npx @phala/fn init userJourney
 We currently have only one template. Just press enter to see something similar to the example below:
 
 ```bash
-npx @phala/fn init example
+npx @phala/fn init userJourney
 # @phala/fn@0.1.5
 # Ok to proceed? (y) y
 # ? Please select one of the templates for your "userJourney" project: lensapi-oracle-consumer-contract. Polygon Consumer Contract for LensAPI Oracle
@@ -173,10 +173,27 @@ yarn run-function
 
 Notice that the test fails and reports that a `Malformed request received` was emitted and the request was `undefined`. This is expected as you will need to define the parameters by adding a `-a abi.encode(requestId, profileId) https://api-mumbai.lens.dev` to your command.
 
-Let’s try again.
-
-> Note: You will need to use `abi.encode` the tuple of `(requestId, profileId)` to get the appropriate hexstring for the first argument.
-
+To simulate the expected result locally, run the Phala Oracle function now with this command:
+>
+> **What are the ingredients for the `yarn run-function` command?**
+>
+> Our Phat Contract script, now fully constructed, is ready for a trial run. This simulation mirrors the live script's operation when deployed on the Phala Network.
+>
+> The command's first parameter is a HexString, representing a tuple of types `[uintCoder, bytesCoder]`. This serves as the entry function. The second parameter is a `string`, embodying the configurable secrets fed into the main function.
+>
+> The `Coders.decode` function deciphers these parameters, yielding the decoded `requestId` and `encodedReqStr`. These decoded elements then become the raw material for the rest of the custom logic within the script.
+> ```typescript 
+> export default function main(request: HexString, settings: string): HexString {
+>   console.log(`handle req: ${request}`);
+>   let requestId, encodedReqStr;
+>   try {
+>     [requestId, encodedReqStr] = Coders.decode([uintCoder, bytesCoder], request);
+>   } catch (error) {
+>     console.info("Malformed request received");
+>   }
+> // ...
+> } 
+>
 ```bash
 yarn run-function -a 0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000043078303100000000000000000000000000000000000000000000000000000000 https://api-mumbai.lens.dev
 ```
@@ -374,57 +391,37 @@ yarn test-verify 0x090E8fDC571d65459569BC87992C1026121DB955
 ### Deploy Phat Contract to PoC5 Testnet
 For customizing your Phat Contract, checkout Phat Contract custom configurations in [JS_API_DOC.md](./src/JS_API_DOC.md) to learn more before deploying to PoC5 testnet.
 
-First you will need to build your Phat Contract with this command:
-```shell
-yarn build-function
-```
-Here is the expected output:
-```shell
-yarn build-function
-# yarn run v1.22.18
-# $ phat-fn build src/index.ts
-# Creating an optimized build... done
-# Compiled successfully.
-#
-#   17.66 KB  dist/index.js
-# ✨  Done in 3.71s.
-```
 Now that are Phat Contract has built successfully, let's deploy to Phala PoC5 Testnet with the following command:
 ```shell
+# If you did not export your Polkadot account in a 
+# polkadot-account.json file in the root of project
 yarn test-deploy-function
+# If polkadot-account.json is in the root of project
+yarn test-deploy-function -a ./polkadot-account.json
 ```
 Here is the expected output:
 > Note: your contract IDs will vary and not be the same as the IDs below.
 ```shell
-yarn test-deploy-function
-# yarn run v1.22.18
-# $ hardhat run --network mumbai ./scripts/mumbai/deploy-function.ts
-# We going to deploy your Phat Contract to Phala Network Testnet: wss://poc5.phala.network/ws
-# (node:12200) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
-# (Use `node --trace-warnings ...` to show where the warning was created)
-# Your Brick Profile contract ID: 0xfd18dca07dc76811dd99b14ee6fe3b82e135ed06a2c311b741e6c9163892b32c
-# The ActionOffchainRollup contract has been instantiated:  0x1161a649467fac4532b3ef85b70bf750380dea49c3efbb4ce8db66d0de47389a
+yarn test-deploy-function -a ./polkadot-account.json
+# ? Please enter your client RPC URL https://polygon-mumbai.g.alchemy.com/v2/JLjOfWJycWFOA0kK_SJ4jLGjtXkMN1wc
+# ? Please enter your consumer address 0xA4Be456Fd0d41968a52b34Cdb8Ba875F2281134a
+# ? Please Enter hahaha account password [hidden]
+# Creating an optimized build... done
+# Compiled successfully.
 #
-# 🎉 Your workflow has been added, you can check it out here: https://bricks-poc5.phala.network//workflows/0xfd18dca07dc76811dd99b14ee6fe3b82e135ed06a2c311b741e6c9163892b32c/0
-#
-#   You also need set up the attestor to your .env file:
-#
-#   MUMBAI_PHALA_ORACLE_ATTESTOR=0x1f6911eaa71405eb043961c0ba4bb6ed7ecc5c8e
-#
-#   Then run:
-#
-#   yarn test-set-attestor
-#
-#   Then send the test request with follow up command:
-#
-#   yarn test-push-request
-#
-#   You can continue update the Phat Contract codes and update it with follow up commands:
-#
-#   yarn build-function
-#   WORKFLOW_ID=0 yarn test-update-function
-#
-# ✨  Done in 36.35s.
+#  17.64 KB  dist/index.js
+# Connecting to the endpoint: wss://poc5.phala.network/ws... ⡿
+# (node:25497) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
+# Connecting to the endpoint: wss://poc5.phala.network/ws... done
+# Querying your Brick Profile contract ID... done
+# Your Brick Profile contract ID: 0x4071788a8ce6fbab0cacea0cb1aa52853b5537db7955643e5010c22913c2b1dd
+# Instantiating the ActionOffchainRollup contract... done
+# The ActionOffchainRollup contract has been instantiated: 0x9c777c16b0a185caa895835b8f3b9e8d67be9f5e30197f71b4d32d2b8fde4b3b
+# Setting up the actions... done
+# 🎉 Your workflow has been added, you can check it out here: https://bricks-poc5.phala.network/workflows/0x4071788a8ce6fbab0cacea0cb1aa52853b5537db7955643e5010c22913c2b1dd/3
+# Your Attestor address: 0x2b5fe2920cce2f522d69613adaa9378ba43b687d
+# Your WORKFLOW_ID: 3
+# ✨  Done in 73.22s.
 ```
 
 Go to the [PoC5 Testnet Bricks UI](https://bricks-poc5.phala.network) Dashboard and you can see your newly deployed Phat Contract.
@@ -475,66 +472,33 @@ yarn test-push-request
 ```
 
 ### Update Phat Contract on Phala PoC5 Testnet
-#### Option 1: If you exported your Polkadot account to root of project as `polkadot-account.json`
-With option 1 you are not required to rebuild the [`index.ts`](./src/index.ts) script since the `@phala/fn update` command will trigger the build for you.
-> **Note**: Set `WORKFLOW_ID` to the ID of your deployed Phat Contract. You find this in the dashboard of deployed Phat Contracts.
-
+Sometimes you may have had a bug in your script or you want to test things out on the fly without deploying a whole new Phat Contract. We now allow you to update your Phat Contract easily in the commandline.
+Now let's update the Phat Contract with the following command:
 ```shell
-WORKFLOW_ID=X npx @phala/fn update -a ./polkadot.json --workflowId=$WORKFLOW_ID
+# If you did not export your Polkadot account in a 
+# polkadot-account.json file in the root of project
+yarn test-update-function
+# If polkadot-account.json is in the root of project
+yarn test-update-function -a ./polkadot-account.json
 ```
-After the `index.ts` is built, you will be prompted for your password, before triggering the update to your deployed Phat Contract.
 ```shell
-WORKFLOW_ID=0 npx @phala/fn update -a ./polkadot-account.json --workflowId=$WORKFLOW_ID
+yarn test-update-function -a ./polkadot-account.json
+# ? Please Enter hahaha account password [hidden]
 # Creating an optimized build... done
 # Compiled successfully.
 #
-#  17.64 KB  dist/index.js
-# Start updating...
-#
-# ? Enter hahaha account password [hidden]
-# Connecting to the endpoint: wss://poc5.phala.network/ws... ⢿
-# (node:20408) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
+#   17.64 KB  dist/index.js
+# Connecting to the endpoint: wss://poc5.phala.network/ws... ⡿
+# (node:25392) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
 # Connecting to the endpoint: wss://poc5.phala.network/ws... done
 # Querying your Brick Profile contract ID... done
 # Your Brick Profile contract ID: 0x4071788a8ce6fbab0cacea0cb1aa52853b5537db7955643e5010c22913c2b1dd
 # Checking your workflow settings... done
 # Updating... done
 # The Phat Function for workflow 1 has been updated.
-# ✨  Done in 14.80s.
+# ✨  Done in 10.82s.
 ```
 Congrats! You've now successfully updated your Phat Contract!
-
-#### Option 2: Build Phat Contract script then update Phat Contract 
-With option 2, we have to update the Phat Contract that we have deployed. Once we have updated the Phat Contract, we must build the Phat Contract again.
-```shell
-yarn build-function
-```
-```shell
-yarn build-function
-# yarn run v1.22.18
-# $ phat-fn build src/index.ts
-# Creating an optimized build... done
-# Compiled successfully.
-#
-#  17.66 KB  dist/index.js
-# ✨  Done in 3.48s.
-```
-> **Note**: Before we update the Phat Contract, make sure to take the `WORKFLOW_ID` from the deployment of the Phat Contract step and set it in your `.env` file.
-
-Now let's update the Phat Contract with the following command:
-```shell
-yarn test-update-function
-```
-```shell
-yarn test-update-function
-# yarn run v1.22.18
-# $ hardhat run --network mumbai ./scripts/mumbai/update-function.ts
-# (node:12991) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
-# (Use `node --trace-warnings ...` to show where the warning was created)
-# Your Brick Profile contract ID: 0xfd18dca07dc76811dd99b14ee6fe3b82e135ed06a2c311b741e6c9163892b32c
-# The Phat Contract for workflow 0 has been updated.
-# ✨  Done in 5.07s.
-```
 
 ### Deploy to Polygon Mainnet
 Ensure to save the address after deploying the Consumer Contract because this address will be used in the "[Configure Client](https://docs.phala.network/developers/bricks-and-blueprints/featured-blueprints/lensapi-oracle#step-4-configure-the-client-address)" section of Phat Bricks UI. The deployed address will also be set to the environment variable [`POLYGON_CONSUMER_CONTRACT_ADDRESS`](./.env.local).
@@ -570,59 +534,38 @@ yarn main-verify 0xbb0d733BDBe151dae3cEf8D7D63cBF74cCbf04C4
 ### Deploy Phat Contract to Phala Mainnet
 For customizing your Phat Contract, Phat Contract custom configurations can be found here in [JS_API_DOC.md](./src/JS_API_DOC.md) to learn more before deploying to Phala Mainnet.
 
-First you will need to build your Phat Contract with this command:
-```shell
-yarn build-function
-```
-Here is the expected output:
-```shell
-yarn build-function
-# yarn run v1.22.18
-# $ phat-fn build src/index.ts
-# Creating an optimized build... done
-# Compiled successfully.
-#
-#   17.66 KB  dist/index.js
-# ✨  Done in 3.71s.
-```
 Now that are Phat Contract has built successfully, let's deploy to Phala Mainnet with the following command:
 ```shell
+# If you did not export your Polkadot account in a 
+# polkadot-account.json file in the root of project
 yarn main-deploy-function
+# If polkadot-account.json is in the root of project
+yarn main-deploy-function -a ./polkadot-account.json
 ```
 Here is the expected output:
 > Note: your contract IDs will vary and not be the same as the IDs below.
 ```shell
-yarn main-deploy-function
-# yarn run v1.22.18
-# $ hardhat run --network polygon ./scripts/polygon/deploy-function.ts
-# We are going to deploy your Phat Contract to Phala Network Mainnet:: wss://api.phala.network/ws
-# (node:12200) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
-# (Use `node --trace-warnings ...` to show where the warning was created)
-# Your Brick Profile contract ID: 0xfd18dca07dc76811dd99b14ee6fe3b82e135ed06a2c311b741e6c9163892b32c
-# The ActionOffchainRollup contract has been instantiated:  0x1161a649467fac4532b3ef85b70bf750380dea49c3efbb4ce8db66d0de47389a
+yarn main-deploy-function -a ./polkadot-account.json
+# ? Please enter your client RPC URL https://polygon.g.alchemy.com/v2/JLjOfWJycWFOA0kK_SJ4jLGjtXkMN1wc
+# ? Please enter your consumer address 0xA4Be456Fd0d41968a52b34Cdb8Ba875F2281134a
+# ? Please Enter hahaha account password [hidden]
+# Creating an optimized build... done
+# Compiled successfully.
 #
-# 🎉 Your workflow has been added, you can check it out here: https://bricks.phala.network//workflows/0xfd18dca07dc76811dd99b14ee6fe3b82e135ed06a2c311b741e6c9163892b32c/0
-#
-#   You also need set up the attestor to your .env file:
-#
-#   POLYGON_PHALA_ORACLE_ATTESTOR=0x1f6911eaa71405eb043961c0ba4bb6ed7ecc5c8e
-#
-#   Then run:
-#
-#   yarn test-set-attestor
-#
-#   Then send the test request with follow up command:
-#
-#   yarn test-push-request
-#
-#   You can continue update the Phat Contract codes and update it with follow up commands:
-#
-#   yarn build-function
-#   WORKFLOW_ID=0 yarn test-update-function
-#
-# ✨  Done in 36.35s.
+#  17.64 KB  dist/index.js
+# Connecting to the endpoint: wss://api.phala.network/ws... ⡿
+# (node:25497) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
+# Connecting to the endpoint: wss://api.phala.network/ws... done
+# Querying your Brick Profile contract ID... done
+# Your Brick Profile contract ID: 0x4071788a8ce6fbab0cacea0cb1aa52853b5537db7955643e5010c22913c2b1dd
+# Instantiating the ActionOffchainRollup contract... done
+# The ActionOffchainRollup contract has been instantiated: 0x9c777c16b0a185caa895835b8f3b9e8d67be9f5e30197f71b4d32d2b8fde4b3b
+# Setting up the actions... done
+# 🎉 Your workflow has been added, you can check it out here: https://bricks-poc5.phala.network/workflows/0x4071788a8ce6fbab0cacea0cb1aa52853b5537db7955643e5010c22913c2b1dd/3
+# Your Attestor address: 0x2b5fe2920cce2f522d69613adaa9378ba43b687d
+# Your WORKFLOW_ID: 2
+# ✨  Done in 73.22s.
 ```
-
 
 #### Interact with Consumer Contract on Polygon Mainnet
 Execute Scripts to Consumer Contract on Polygon Mainnet. The Consumer Contract on Polygon Mainnet with a few actions to mimic a malformed request, successful requests, and set the attestor.
@@ -646,66 +589,31 @@ yarn main-push-request
 ```
 
 ### Update Phat Contract on Phala Mainnet
-#### Option 1: If you exported your Polkadot account to root of project as `polkadot-account.json`
-With option 1 you are not required to rebuild the [`index.ts`](./src/index.ts) script since the `@phala/fn update` command will trigger the build for you.
-> **Note**: Set `WORKFLOW_ID` to the ID of your deployed Phat Contract. You find this in the dashboard of deployed Phat Contracts.
-
+Sometimes you may have had a bug in your script or you want to test things out on the fly without deploying a whole new Phat Contract. We now allow you to update your Phat Contract easily in the commandline.
+Now let's update the Phat Contract with the following command:
 ```shell
-WORKFLOW_ID=X npx @phala/fn update --mode=production -a ./polkadot.json --workflowId=$WORKFLOW_ID
+# If you did not export your Polkadot account in a 
+# polkadot-account.json file in the root of project
+yarn main-update-function
+# If polkadot-account.json is in the root of project
+yarn main-update-function -a ./polkadot-account.json
 ```
-After the `index.ts` is built, you will be prompted for your password, before triggering the update to your deployed Phat Contract.
 ```shell
-WORKFLOW_ID=0 npx @phala/fn update --mode=production -a ./polkadot-account.json  --workflowId=$WORKFLOW_ID
+yarn main-update-function -a ./polkadot-account.json
+# ? Please Enter hahaha account password [hidden]
 # Creating an optimized build... done
 # Compiled successfully.
 #
-#  17.64 KB  dist/index.js
-# Start updating...
-#
-# ? Enter hahaha account password [hidden]
-# Connecting to the endpoint: wss://api.phala.network/ws... ⢿
-# (node:20408) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
+#   17.64 KB  dist/index.js
+# Connecting to the endpoint: wss://api.phala.network/ws... ⡿
+# (node:25392) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
 # Connecting to the endpoint: wss://api.phala.network/ws... done
 # Querying your Brick Profile contract ID... done
 # Your Brick Profile contract ID: 0x4071788a8ce6fbab0cacea0cb1aa52853b5537db7955643e5010c22913c2b1dd
 # Checking your workflow settings... done
 # Updating... done
 # The Phat Function for workflow 1 has been updated.
-# ✨  Done in 14.80s.
-```
-Congrats! You've now successfully updated your Phat Contract!
-
-#### Option 2: Build Phat Contract script then update Phat Contract
-With optin 2,
-update the function that we have deployed. Once we have updated the function, we must build the function again.
-```shell
-yarn build-function
-```
-```shell
-yarn build-function
-# yarn run v1.22.18
-# $ phat-fn build src/index.ts
-# Creating an optimized build... done
-# Compiled successfully.
-#
-#  17.66 KB  dist/index.js
-# ✨  Done in 3.48s.
-```
-> Note: Before we update the function, make sure to take the `WORKFLOW_ID` from the deployment of the Phat Contract function step and set it in your `.env` file.
-
-Now let's update the function with the following command:
-```shell
-yarn main-update-function
-```
-```shell
-yarn main-update-function
-# yarn run v1.22.18
-# $ hardhat run --network polygon ./scripts/polygon/update-function.ts
-# (node:12991) ExperimentalWarning: buffer.Blob is an experimental feature. This feature could change at any time
-# (Use `node --trace-warnings ...` to show where the warning was created)
-# Your Brick Profile contract ID: 0xfd18dca07dc76811dd99b14ee6fe3b82e135ed06a2c311b741e6c9163892b32c
-# The Phat Function for workflow 0 has been updated.
-# ✨  Done in 5.07s.
+# ✨  Done in 10.82s.
 ```
 
 ## Closing
