@@ -40,13 +40,16 @@ Now, build the default Phala Oracle function with this command:
 yarn build-function
 ```
 To simulate the expected result locally, run the Phala Oracle function now with this command:
-> 
+```bash
+yarn run-function -a 0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000043078303100000000000000000000000000000000000000000000000000000000 https://api-mumbai.lens.dev
+```
+>
 > **What are the ingredients for the `yarn run-function` command?**
 >
 > Our Phat Contract script, now fully constructed, is ready for a trial run. This simulation mirrors the live script's operation when deployed on the Phala Network.
-> 
+>
 > The command's first parameter is a HexString, representing a tuple of types `[uintCoder, bytesCoder]`. This serves as the entry function. The second parameter is a `string`, embodying the configurable secrets fed into the main function.
-> 
+>
 > The `Coders.decode` function deciphers these parameters, yielding the decoded `requestId` and `encodedReqStr`. These decoded elements then become the raw material for the rest of the custom logic within the script.
 > ```typescript 
 > export default function main(request: HexString, settings: string): HexString {
@@ -59,17 +62,15 @@ To simulate the expected result locally, run the Phala Oracle function now with 
 >   }
 > // ...
 > } 
-> 
+>
 
-Let's start the simulated execution.
-```bash
-yarn run-function -a 0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000043078303100000000000000000000000000000000000000000000000000000000 https://api-mumbai.lens.dev
-```
 Finally, run the local end-to-end tests with this command. Here we will simulate locally the interaction between the Phat Contract and the Consumer Contract with hardhat.
 ```bash
 yarn hardhat test
 ```
-Congratulations! You have successfully completed the quick start. For the next steps, you will learn how to deploy your Phala Oracle and connect to the consumer contract for the EVM testnet chain to start testing the request-response model live.
+:partying_face: **Congratulations!** 
+
+You have successfully completed the quick start. For the next steps, you will learn how to deploy your Phala Oracle and connect to the consumer contract for the EVM testnet chain to start testing the request-response model live.
 
 For a deeper dive into the details, click [here](./GETTING_STARTED.md),  or continue reading to learn about the valuable features the Phala Oracle can offer to your on-chain consumer contract.
 
