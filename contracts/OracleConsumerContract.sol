@@ -5,8 +5,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./PhatRollupAnchor.sol";
 
 contract OracleConsumerContract is PhatRollupAnchor, Ownable {
-    event ResponseReceived(uint reqId, string pair, uint256 value);
-    event ErrorReceived(uint reqId, string pair, uint256 errno);
+    event ResponseReceived(uint reqId, string reqData, uint256 value);
+    event ErrorReceived(uint reqId, string reqData, uint256 errno);
 
     uint constant TYPE_RESPONSE = 0;
     uint constant TYPE_ERROR = 2;
@@ -22,11 +22,11 @@ contract OracleConsumerContract is PhatRollupAnchor, Ownable {
         _grantRole(PhatRollupAnchor.ATTESTOR_ROLE, phatAttestor);
     }
 
-    function request(string calldata profileId) public {
+    function request(string calldata reqData) public {
         // assemble the request
         uint id = nextRequest;
-        requests[id] = profileId;
-        _pushMessage(abi.encode(id, profileId));
+        requests[id] = reqData;
+        _pushMessage(abi.encode(id, reqData));
         nextRequest += 1;
     }
 

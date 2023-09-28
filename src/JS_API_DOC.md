@@ -1,4 +1,4 @@
-# What Can You Do With Your Function?
+# What Can You Do With Your Phat Contract?
 
 
 In the `README.md` [link](../GETTING_STARTED.md), you learned how to generate a new default function template and execute the 3 separate ways to test and validate your the results of the function. Now we will dive into what you can do with your function to extend the capabilities.
@@ -356,6 +356,259 @@ Let's see how the results look.
     ![](../assets/KVDB-hashes.png)
 - Telegram bot sends hashes for `hello`
     ![](../assets/TG-hashes.png)
+
+## Handle Response Encoding & Decoding
+In the [index.ts](https://github.com/Phala-Network/phat-contract-starter-kit/blob/37e7ee2fa96c42f90f4418d45a9c47be570d59f5/src/index.ts#L6) file of your Phat Contract starter kit, there is an npm package available called @phala/ethers and your file will import Coders which has the following types available.
+```typescript
+// From https://github.com/Phala-Network/phat-contract-starter-kit/blob/37e7ee2fa96c42f90f4418d45a9c47be570d59f5/src/index.ts#L6
+import { AddressCoder } from "./coders/address.js";
+import { ArrayCoder } from "./coders/array.js";
+import { BooleanCoder } from "./coders/boolean.js";
+import { BytesCoder } from "./coders/bytes.js";
+import { FixedBytesCoder } from "./coders/fixed-bytes.js";
+import { NullCoder } from "./coders/null.js";
+import { NumberCoder } from "./coders/number.js";
+import { StringCoder } from "./coders/string.js";
+import { TupleCoder } from "./coders/tuple.js";
+```
+
+`AddressCoder` Example
+`index.ts`
+```typescript
+// ...
+// Encode Address
+const addressCoder = new Coders.AddressCoder("address");
+// uint Coder
+const uintCoder = new Coders.NumberCoder(32, false, "uint256");
+function encodeReply(reply: [uint, uint, address]): HexString {
+  return Coders.encode([uintCoder, uintCoder, addressCoder], reply) as HexString;
+}
+// Defined in OracleConsumerContract.sol
+const TYPE_RESPONSE = 0;
+const TYPE_ERROR = 2;
+
+// main entry function
+export default function main(request: HexString, settings: string): HexString {
+  //...
+   let requestId, encodedReqStr;
+  try {
+    [requestId, encodedReqStr] = Coders.decode([uintCoder, bytesCoder], request);
+  } catch (error) {
+    console.info("Malformed request received");
+    return encodeReply([TYPE_ERROR, 0, errorToCode(error as Error)]);
+  }
+  //...
+  try {
+    const response = "Mike Jones";
+    return encodeReply([TYPE_RESPONSE, requestId, response]);
+  } catch (error) {
+    // Define error logic
+    // otherwise tell client we cannot process it
+    console.log("error:", [TYPE_ERROR, requestId, error]);
+    return encodeReply([TYPE_ERROR, requestId, errorToCode(error as Error)]);
+  }
+}
+// ...
+```
+OracleConsumerContract.sol
+```solidity
+event ResponseReceived(uint reqId, string reqStr, string memory value);
+event ErrorReceived(uint reqId, string reqStr, string memory errno);
+// ...
+// request action request for Phat Contract to respond to
+function request(string calldata reqData) public {
+    // assemble the request
+    uint id = nextRequest;
+    requests[id] = reqData;
+    _pushMessage(abi.encode(id, reqData));
+    nextRequest += 1;
+}
+//...
+// _onMessageReceived response from Phat Contract
+function _onMessageReceived(bytes calldata action) internal override {
+    // Optional to check length of action
+    // require(action.length == 32 * 3, "cannot parse action");
+    (uint respType, uint id, string memory data) = abi.decode(
+        action,
+        (uint, uint, string)
+    );
+    if (respType == TYPE_RESPONSE) {
+        emit ResponseReceived(id, requests[id], data);
+        delete requests[id];
+    } else if (respType == TYPE_ERROR) {
+        emit ErrorReceived(id, requests[id], data);
+        delete requests[id];
+    }
+}
+// ...
+```
+
+`BooleanCoder` Example
+
+`index.ts`
+```typescript
+// ...
+// bool Coder
+const booleanCoder = new Coders.BooleanCoder("bool");
+// uint Coder
+const uintCoder = new Coders.NumberCoder(32, false, "uint256");
+function encodeReply(reply: [uint, uint, bool]): HexString {
+    return Coders.encode([uintCoder, uintCoder, booleanCoder], reply) as HexString;
+}
+// Defined in OracleConsumerContract.sol
+const TYPE_RESPONSE = 0;
+const TYPE_ERROR = 2;
+
+// main entry function
+export default function main(request: HexString, settings: string): HexString {
+    //...
+    let requestId, encodedReqStr;
+    try {
+        [requestId, encodedReqStr] = Coders.decode([uintCoder, bytesCoder], request);
+    } catch (error) {
+        console.info("Malformed request received");
+        return encodeReply([TYPE_ERROR, 0, errorToCode(error as Error)]);
+    }
+    //...
+    try {
+        const response = true;
+        return encodeReply([TYPE_RESPONSE, requestId, response]);
+    } catch (error) {
+        // Define error logic
+        // otherwise tell client we cannot process it
+        console.log("error:", [TYPE_ERROR, requestId, error]);
+        return encodeReply([TYPE_ERROR, requestId, errorToCode(error as Error)]);
+    }
+}
+// ...
+```
+OracleConsumerContract.sol
+```solidity
+event ResponseReceived(uint reqId, string reqStr, bool value);
+event ErrorReceived(uint reqId, string reqStr, bool errno);
+// ...
+// request action request for Phat Contract to respond to
+function request(string calldata reqData) public {
+    // assemble the request
+    uint id = nextRequest;
+    requests[id] = reqData;
+    _pushMessage(abi.encode(id, reqData));
+    nextRequest += 1;
+}
+//...
+// _onMessageReceived response from Phat Contract
+function _onMessageReceived(bytes calldata action) internal override {
+    // Optional to check length of action
+    // require(action.length == 32 * 3, "cannot parse action");
+    (uint respType, uint id, bool data) = abi.decode(
+        action,
+        (uint, uint, bool)
+    );
+    if (respType == TYPE_RESPONSE) {
+        emit ResponseReceived(id, requests[id], data);
+        delete requests[id];
+    } else if (respType == TYPE_ERROR) {
+        emit ErrorReceived(id, requests[id], data);
+        delete requests[id];
+    }
+}
+// ...
+```
+
+`NumberCoder` Example
+
+`index.ts`
+```typescript
+// ...
+// Encode number
+const uintCoder = new Coders.NumberCoder(32, false, "uint256");
+function encodeReply(reply: [number, number, number]): HexString {
+    return Coders.encode([uintCoder, uintCoder, uintCoder], reply) as HexString;
+}
+// Defined in OracleConsumerContract.sol
+const TYPE_RESPONSE = 0;
+const TYPE_ERROR = 2;
+
+// main entry function
+export default function main(request: HexString, settings: string): HexString {
+    //...
+    let requestId, encodedReqStr;
+    try {
+        [requestId, encodedReqStr] = Coders.decode([uintCoder, bytesCoder], request);
+    } catch (error) {
+        console.info("Malformed request received");
+        return encodeReply([TYPE_ERROR, 0, errorToCode(error as Error)]);
+    }
+    //...
+    try {
+        const response = 2813308004;
+        return encodeReply([TYPE_RESPONSE, requestId, stats]);
+    } catch (error) {
+        // Define error logic
+        // otherwise tell client we cannot process it
+        console.log("error:", [TYPE_ERROR, requestId, error]);
+        return encodeReply([TYPE_ERROR, requestId, errorToCode(error as Error)]);
+    }
+}
+// ...
+```
+OracleConsumerContract.sol
+```solidity
+event ResponseReceived(uint reqId, string reqStr, string memory value);
+event ErrorReceived(uint reqId, string reqStr, string memory errno);
+// ...
+// request action request for Phat Contract to respond to
+function request(string calldata reqData) public {
+    // assemble the request
+    uint id = nextRequest;
+    requests[id] = reqData;
+    _pushMessage(abi.encode(id, reqData));
+    nextRequest += 1;
+}
+//...
+// _onMessageReceived response from Phat Contract
+function _onMessageReceived(bytes calldata action) internal override {
+    // Optional to check length of action
+    // require(action.length == 32 * 3, "cannot parse action");
+    (uint respType, uint id, uint256 data) = abi.decode(
+        action,
+        (uint, uint, uint256)
+    );
+    if (respType == TYPE_RESPONSE) {
+        emit ResponseReceived(id, requests[id], data);
+        delete requests[id];
+    } else if (respType == TYPE_ERROR) {
+        emit ErrorReceived(id, requests[id], data);
+        delete requests[id];
+    }
+}
+// ...
+```
+
+
+Complex Example
+- `BytesCoder`
+- `FixedBytesCoder`
+- `NullCoder`
+- `TupleCoder`
+
+Sample of returning complex tuple data from `index.ts` to consumer contract:
+```typescript
+import { Coders } from "@phala/ethers";
+
+const bytesCoder = new Coders.BytesCoder('bytes');
+const fixedCoder = new Coders.FixedBytesCoder(16, 'bytes')
+const nullCoder = new Coders.NullCoder('nullCoder')
+const tupleCoder = new Coders.TupleCoder([bytesCoder, fixedCoder, nullCoder], 'tupleCoder')
+
+export default function main() {
+  return Coders.encode([tupleCoder], [[new Uint8Array(0), new Uint8Array(16), null]])
+}
+```
+How the Solidity consumer contract handles the decoding:
+```typescript
+
+```
 
 ## Closing
 Congratulations! You now possess the power to extend the functionality of your functions in many unique ways. If this sparks some ideas that require some extensive functionality that is not supported in `@phala/pink-env`, jump in our [discord](https://discord.gg/dB4AuP4Q), and we can help you learn a little rust to build some Phat Contracts with the Rust SDK then leverage the functions `pink.invokeContract()` & `pink.invokeContractDelegate()` to make calls to the Rust SDK deployed Phat Contracts.
