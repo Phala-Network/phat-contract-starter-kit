@@ -50,7 +50,6 @@ ls                                                                              
 # -rw-r--r--   1 hashwarlock  staff   227B Sep  6 15:32 .gitignore
 # -rw-r--r--   1 hashwarlock  staff    34K Sep  6 15:32 LICENSE
 # -rw-r--r--   1 hashwarlock  staff   8.9K Sep  6 15:32 README.md
-# drwxr-xr-x   5 hashwarlock  staff   160B Sep  6 15:32 abis
 # drwxr-xr-x   4 hashwarlock  staff   128B Sep  6 15:32 assets
 # drwxr-xr-x   5 hashwarlock  staff   160B Sep  6 15:32 contracts
 # -rw-r--r--   1 hashwarlock  staff   1.3K Sep  6 15:32 hardhat.config.ts
