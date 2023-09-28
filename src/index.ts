@@ -1,9 +1,57 @@
+// *** YOU ARE LIMITED TO THE FOLLOWING IMPORTS TO BUILD YOUR PHAT CONTRACT     ***
+// *** ADDING ANY IMPORTS WILL RESULT IN ERRORS & UPLOADING YOUR CODE TO PHALA  ***
+// *** NETWORK WILL FAIL. IF YOU WANT TO KNOW MORE, JOIN OUR DISCORD TO SPEAK   ***
+// *** WITH THE PHALA TEAM AT https://discord.gg/5HfmWQNX THANK YOU             ***
 import "@phala/pink-env";
 import { Coders } from "@phala/ethers";
 
 type HexString = `0x${string}`
 
-// eth abi coder
+// ETH ABI Coders available
+/*
+// Basic Types
+// Encode uint
+const uintCoder = new Coders.NumberCoder(32, false, "uint256");
+// Encode Bytes
+const bytesCoder = new Coders.BytesCoder("bytes");
+// Encode String
+const stringCoder = new Coders.StringCoder("string");
+// Encode Address
+const addressCoder = new Coders.AddressCoder("address");
+
+// ARRAYS
+//
+// ***NOTE***
+// IF YOU DEFINE AN TYPED ARRAY FOR ENCODING, YOU MUST ALSO DEFINE THE SIZE WHEN DECODING THE ACTION REPLY IN YOUR
+// SOLIDITY SMART CONTRACT.
+// EXAMPLE for an array of string with a length of 10
+//
+// index.ts
+const stringCoder = new Coders.StringCoder("string");
+const stringArrayCoder = new Coders.ArrayCoder(stringCoder, 10, "string[]");
+function encodeReply(reply: [number, number, string[]]): HexString {
+  return Coders.encode([uintCoder, uintCoder, uintCoder], reply) as HexString;
+}
+
+export default function main(request: HexString, settings: string): HexString {
+
+}
+// OracleConsumerContract.sol
+function _onMessageReceived(bytes calldata action) internal override {
+    (uint respType, uint id, string[10] memory data) = abi.decode(
+        action,
+        (uint, uint, string[10])
+    );
+}
+// Encode Array of addresses with a length of 10
+const stringArrayCoder = new Coders.ArrayCoder(stringCoder, 10, "string");
+// Encode Array of addresses with a length of 10
+const addressArrayCoder = new Coders.ArrayCoder(addressCoder, 10, "address");
+// Encode Array of bytes with a length of 10
+const bytesArrayCoder = new Coders.ArrayCoder(bytesCoder, 10, "bytes");
+// Encode Array of uint with a length of 10
+const uintArrayCoder = new Coders.ArrayCoder(uintCoder, 10, "uint256");
+ */
 const uintCoder = new Coders.NumberCoder(32, false, "uint256");
 const bytesCoder = new Coders.BytesCoder("bytes");
 

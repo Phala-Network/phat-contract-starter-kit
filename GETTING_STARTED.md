@@ -27,6 +27,7 @@
 ## Overview
 This project represents a basic EVM Consumer Contract that is compatible with a deployed Oracle written in TypeScript on Phala Network.
 > **Note**: For simplicity, we will utilize Polygon Mumbai and Polygon Mainnet for the following examples.
+
 ## Prerequisites
 - Active Phala Profile with version `>= 1.0.1` via [Phat Contract 2.0 UI](https://bricks.phala.network)
 - [Hardhat](https://hardhat.org)
@@ -42,7 +43,7 @@ This project represents a basic EVM Consumer Contract that is compatible with a 
 Check out the environment variables here in [.env.local](./.env.local) file.
 
 ## Getting Started
-> Note: If you cloned this repo or created a template, skip to [Create a Phala Profile](#create-a-phala-profile)
+> :rotating_light: **Note** :rotating_light:: If you cloned this repo or created a template, skip to [Create a Phala Profile](#create-a-phala-profile)
 > 
 First you will need to install the [@phala/fn](https://www.npmjs.com/package/@phala/fn) CLI tool using your node package manager (`npm`) or use node package execute (`npx`). In this tutorial we use `npx`.
 
@@ -106,7 +107,7 @@ Go to your browser and click on the polkadot.js extension. Select your account a
 ![](./assets/ExportAccount.png)
 Next, you will be prompted for your password before saving the file to your project directory. **Note** this is what will be set to [`POLKADOT_WALLET_PASSPHRASE`](./.env.local).
 ![](./assets/ExportTypePass.png)
-Make sure to save the file as `polkadot-account.json`.
+Make sure to save the file as `polkadot-account.json` in the root of your project directory.
 ![](./assets/SaveAccount.png)
 
 #### Option 2: Set mnemonic phrase to [`POLKADOT_WALLET_SURI`](./.env.local)
