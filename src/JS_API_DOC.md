@@ -1,9 +1,7 @@
 # What Can You Do With Your Function?
 
-> ******Author******: Joshua Waller
->
 
-In the `README.md` [link](./README.md), you learned how to generate a new default function template and execute the 3 separate ways to test and validate your the results of the function. Now we will dive into what you can do with your function to extend the capabilities.
+In the `README.md` [link](../GETTING_STARTED.md), you learned how to generate a new default function template and execute the 3 separate ways to test and validate your the results of the function. Now we will dive into what you can do with your function to extend the capabilities.
 
 What you will learn:
 
