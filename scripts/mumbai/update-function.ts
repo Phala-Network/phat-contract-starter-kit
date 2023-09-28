@@ -109,7 +109,7 @@ async function main() {
     ),
     pair
   )
-  console.log(`The Phat Function for workflow ${workflowId} has been updated.`)
+  console.log(`The Phat Contract for workflow ${workflowId} has been updated.`)
 
   process.exit(0)
 }

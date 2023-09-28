@@ -4,7 +4,7 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./PhatRollupAnchor.sol";
 
-contract TestLensApiConsumerContract is PhatRollupAnchor, Ownable {
+contract OracleConsumerContract is PhatRollupAnchor, Ownable {
     event ResponseReceived(uint reqId, string pair, uint256 value);
     event ErrorReceived(uint reqId, string pair, uint256 errno);
 

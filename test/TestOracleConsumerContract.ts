@@ -27,12 +27,12 @@ async function waitForResponse(consumer: Contract, event: Event) {
   return receipt.events;
 }
 
-describe("TestLensApiConsumerContract", function () {
+describe("OracleConsumerContract.sol", function () {
   it("Push and receive message", async function () {
     // Deploy the contract
     const [deployer] = await ethers.getSigners();
-    const TestLensApiConsumerContract = await ethers.getContractFactory("TestLensApiConsumerContract");
-    const consumer = await TestLensApiConsumerContract.deploy(deployer.address);
+    const TestOracleConsumerContract = await ethers.getContractFactory("OracleConsumerContract");
+    const consumer = await TestOracleConsumerContract.deploy(deployer.address);
 
     // Make a request
     const profileId = "0x01";
@@ -41,7 +41,7 @@ describe("TestLensApiConsumerContract", function () {
     const reqEvents = receipt.events;
     expect(reqEvents![0]).to.have.property("event", "MessageQueued");
 
-    // Wait for Phat Function response
+    // Wait for Phat Contract response
     const respEvents = await waitForResponse(consumer, reqEvents![0])
 
     // Check response data

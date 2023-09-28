@@ -2,12 +2,12 @@ import { ethers } from "hardhat";
 import "dotenv/config";
 
 async function main() {
-  const TestLensApiConsumerContract = await ethers.getContractFactory("TestLensApiConsumerContract");
+  const OracleConsumerContract = await ethers.getContractFactory("OracleConsumerContract");
 
   const [deployer] = await ethers.getSigners();
 
   console.log("Deploying...");
-  const consumer = await TestLensApiConsumerContract.deploy(deployer.address);
+  const consumer = await OracleConsumerContract.deploy(deployer.address);
   await consumer.deployed();
   console.log("Deployed", {
     consumer: consumer.address,

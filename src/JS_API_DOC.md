@@ -21,6 +21,7 @@ What you will learn:
         - sha256
         - keccak256
 - Customize Your Default Function and Test Locally.
+- Encode the response data and update your consumer contract to handle the abi decoding.
 
 ## Getting Started
 
@@ -34,8 +35,8 @@ We currently have only one template. Just press enter to see something similar t
 
 ```bash
 npx @phala/fn init example
-# ? Please select one of the templates for your "example" project: lensapi-oracle-consumer-contract. Polygon Consumer Contract for LensAPI Oracle
-# Downloading the template: https://github.com/Phala-Network/lensapi-oracle-consumer-contract... ✔
+# ? Please select one of the templates for your "example" project: phala-oracle-consumer-contract. Polygon Consumer Contract for LensAPI Oracle
+# Downloading the template: https://github.com/Phala-Network/phala-oracle-consumer-contract... ✔
 # The project is created in ~/Projects/Phala/example
 ```
 
@@ -70,9 +71,9 @@ cd src
 ```
 
 ### Available Capabilities of `@phala/pink-env`
-In the `README.md` we introduced the basic functionality of making a single HTTP request to Lens API. The example code can be seen below:
+In the `GETTING_STARTED.md` we introduced the basic functionality of making a single HTTP request to Lens API. The example code can be seen below:
 ```typescript
-function fetchLensApiStats(lensApi: string, profileId: string): any {
+function fetchApiStats(lensApi: string, profileId: string): any {
   // profile_id should be like 0x0001
   let headers = {
     "Content-Type": "application/json",
@@ -159,10 +160,10 @@ These functions are not necessarily important for those that are not familiar wi
 The `pink.httpRequest()` allows for you to make a single HTTP request from your function to an HTTP endpoint. 
 You will have to define your args:
 - `url: string` – The URL to send the request to.
-- `method: string` – The HTTP method to use for the request (e.g. GET, POST, PUT). Defaults to GET.
-- `headers: Headers` – An map-like object containing the headers to send with the request.
-- `body: Uint8Array | string` – The body of the request, either as a Uint8Array or a string.
-- `returnTextBody: boolean` – A flag indicating whether the response body should be returned as a string (true) or a Uint8Array (false).
+- `method?: string` – (Optional) The HTTP method to use for the request (e.g. GET, POST, PUT). Defaults to GET.
+- `headers?: Headers` – (Optional) An map-like object containing the headers to send with the request.
+- `body?: Uint8Array | string` – (Optional) The body of the request, either as a Uint8Array or a string.
+- `returnTextBody?: boolean` – (Optional) A flag indicating whether the response body should be returned as a string (true) or a Uint8Array (false).
 
 Returned is the `Object` response from the HTTP request containing the following fields:
 - `{number} statusCode` - The HTTP status code of the response.
@@ -182,7 +183,24 @@ console.log(response.body);
 
 ### `pink.batchHttpRequest()`
 Now you may need to call multiple APIs at once, this would require you to use the `pink.batchHttpRequest()` function to ensure you do not timeout (timeouts for Phat Contract is 10 seconds) on your response. The `args` and returned `Object` are the same as `pink.httpRequest()`, but instead you can create an array of HTTP requests within the function.
-Since we have an example above of how to use a `pink.batchHttpRequest()`, let's create a unique example.
+Since we have an example above of how to use a `pink.batchHttpRequest()`, before an examples let's look at the syntax.
+You will have to define your **array** of args:
+- `url: string` – The URL to send the request to.
+- `method?: string` – (Optional) The HTTP method to use for the request (e.g. GET, POST, PUT). Defaults to GET.
+- `headers?: Headers` – (Optional) An map-like object containing the headers to send with the request.
+- `body?: Uint8Array | string` – (Optional) The body of the request, either as a Uint8Array or a string.
+- `returnTextBody?: boolean` – (Optional) A flag indicating whether the response body should be returned as a string (true) or a Uint8Array (false).
+- `[x]` - this value is what you will see below as `[0]` which points to index `0` in the array of HTTP requests.
+- `timeout_ms?: number` - (Optional) a number representing the number of milliseconds before the batch HTTP requests timeout.
+Returned is the `Object` response from the HTTP request containing the following fields:
+- `{number} statusCode` - The HTTP status code of the response.
+- `{string} reasonPhrase` - The reason phrase of the response.
+- `{Headers} headers` - An object containing the headers of the response.
+- `{(Uint8Array|string)} body` - The response body, either as a `Uint8Array` or a string depending on the value of `args.returnTextBody`.
+- `error?: string` - (Optional) The `error` string that will be mapped to the error corresponding to the index of the HTTP request in the batch HTTP requests.
+- `[x]` - this value is what you will see below as `[0]` which points to index `0` in the array of HTTP requests.
+
+let's create a unique example.
 In this example, we will:
 - Use `pink.batchHttpRequest()` to:
   - Query The Odds API for MLB games today

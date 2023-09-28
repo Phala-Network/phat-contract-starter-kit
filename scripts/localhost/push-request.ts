@@ -2,7 +2,7 @@ import { ethers } from "hardhat";
 import "dotenv/config";
 
 async function main() {
-  const TestLensApiConsumerContract = await ethers.getContractFactory("TestLensApiConsumerContract");
+  const OracleConsumerContract = await ethers.getContractFactory("OracleConsumerContract");
 
   const [deployer] = await ethers.getSigners();
 
@@ -11,7 +11,7 @@ async function main() {
     console.error("Error: Please provide LOCALHOST_CONSUMER_CONTRACT_ADDRESS");
     process.exit(1);
   }
-  const consumer = TestLensApiConsumerContract.attach(consumerSC);
+  const consumer = OracleConsumerContract.attach(consumerSC);
   console.log("Pushing a request...");
   await consumer.connect(deployer).request("0x01");
   consumer.on("ResponseReceived", async (reqId: number, pair: string, value: string) => {
