@@ -45,7 +45,7 @@ Check out the environment variables here in [.env.local](./.env.local) file.
 ## Getting Started
 > :rotating_light: **Note** :rotating_light:: If you cloned this repo or created a template, skip to [Create a Phala Profile](#create-a-phala-profile)
 > 
-First you will need to install the [@phala/fn](https://www.npmjs.com/package/@phala/fn) CLI tool using your node package manager (`npm`) or use node package execute (`npx`). In this tutorial we use `npx`.
+First you will need to install the `@phala/fn` CLI tool using your node package manager (`npm`) or use node package execute (`npx`). In this tutorial we use `npx`.
 
 Now create your first template with the CLI tool command:
 ```bash
