@@ -33,8 +33,10 @@ function encodeReply(reply: [number, number, string[]]): HexString {
   return Coders.encode([uintCoder, uintCoder, stringArrayCoder], reply) as HexString;
 }
 
-export default function main(request: HexString, settings: string): HexString {
+const stringArray = string[10];
 
+export default function main(request: HexString, settings: string): HexString {
+  return encodeReply([0, 1, stringArray]);
 }
 // OracleConsumerContract.sol
 function _onMessageReceived(bytes calldata action) internal override {
@@ -51,7 +53,8 @@ const addressArrayCoder = new Coders.ArrayCoder(addressCoder, 10, "address");
 const bytesArrayCoder = new Coders.ArrayCoder(bytesCoder, 10, "bytes");
 // Encode Array of uint with a length of 10
 const uintArrayCoder = new Coders.ArrayCoder(uintCoder, 10, "uint256");
- */
+*/
+
 const uintCoder = new Coders.NumberCoder(32, false, "uint256");
 const bytesCoder = new Coders.BytesCoder("bytes");
 

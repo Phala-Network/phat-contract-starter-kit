@@ -371,7 +371,7 @@ import { StringCoder } from "./coders/string.js";
 import { TupleCoder } from "./coders/tuple.js";
 ```
 
-`AddressCoder` Example
+#### `AddressCoder` Example
 `index.ts`
 ```typescript
 // ...
@@ -409,7 +409,7 @@ export default function main(request: HexString, settings: string): HexString {
 }
 // ...
 ```
-OracleConsumerContract.sol
+`OracleConsumerContract.sol`
 ```solidity
 event ResponseReceived(uint reqId, string reqStr, string memory value);
 event ErrorReceived(uint reqId, string reqStr, string memory errno);
@@ -442,7 +442,7 @@ function _onMessageReceived(bytes calldata action) internal override {
 // ...
 ```
 
-`BooleanCoder` Example
+#### `BooleanCoder` Example
 
 `index.ts`
 ```typescript
@@ -481,7 +481,7 @@ export default function main(request: HexString, settings: string): HexString {
 }
 // ...
 ```
-OracleConsumerContract.sol
+`OracleConsumerContract.sol`
 ```solidity
 event ResponseReceived(uint reqId, string reqStr, bool value);
 event ErrorReceived(uint reqId, string reqStr, bool errno);
@@ -514,7 +514,7 @@ function _onMessageReceived(bytes calldata action) internal override {
 // ...
 ```
 
-`NumberCoder` Example
+#### `NumberCoder` Example
 
 `index.ts`
 ```typescript
@@ -551,7 +551,7 @@ export default function main(request: HexString, settings: string): HexString {
 }
 // ...
 ```
-OracleConsumerContract.sol
+`OracleConsumerContract.sol`
 ```solidity
 event ResponseReceived(uint reqId, string reqStr, string memory value);
 event ErrorReceived(uint reqId, string reqStr, string memory errno);
@@ -584,8 +584,33 @@ function _onMessageReceived(bytes calldata action) internal override {
 // ...
 ```
 
+#### `ArrayCoder` Example
 
-Complex Example
+`index.ts`
+```typescript
+const stringCoder = new Coders.StringCoder("string");
+const stringArrayCoder = new Coders.ArrayCoder(stringCoder, 10, "string[]");
+function encodeReply(reply: [number, number, string[]]): HexString {
+  return Coders.encode([uintCoder, uintCoder, stringArrayCoder], reply) as HexString;
+}
+
+const stringArray = string[10];
+
+export default function main(request: HexString, settings: string): HexString {
+  return encodeReply([0, 1, stringArray]);
+}
+```
+`OracleConsumerContract.sol`
+```solidity
+function _onMessageReceived(bytes calldata action) internal override {
+    (uint respType, uint id, string[10] memory data) = abi.decode(
+        action,
+        (uint, uint, string[10])
+    );
+}
+```
+
+#### Complex Example
 - `BytesCoder`
 - `FixedBytesCoder`
 - `NullCoder`
