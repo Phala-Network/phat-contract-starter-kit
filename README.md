@@ -144,11 +144,11 @@ You could use the Oracle to:
 - **[Bring Web2 services & data on-chain](./assets/case-contract-controlled-web2-service.jpg)**
 - **Web3 Social Integrations**
   - **[LensAPI Oracle](https://bit.ly/3runoN1)**
-  - **[Lens Phite](https://github.com/aeyshubh/lens-Phite2)**
+  - **[Lens Phite](https://bit.ly/3RG9OR7)**
   - **[Mint NFT based on LensAPI Oracle data](./assets/LensAPI-Oracle.png)**
   - **[Lens Treasure Hunt](https://bit.ly/3PWP5Y9)**
 - **[Get Randomness on-chain from drand.love and post with Telegram bot](https://bit.ly/3PXDyI4)**
-- **Trustless HTTPS requests w/ [TLSNotary](https://tlsnotary.org/) integration**
+- **Trustless HTTPS requests w/ [TLSNotary](https://bit.ly/3rwD2Hw) integration**
 - **[Connect to Phat Contract Rust SDK](./assets/Oracle-Rust-SDK.png)** to access all features
 - **[Dynamic NFTs](https://bit.ly/3ZBJHNb)**
 
