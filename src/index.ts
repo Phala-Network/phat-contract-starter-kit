@@ -178,7 +178,7 @@ function parseReqStr(hexStr: string): string {
 // - request: The raw payload from the contract call `request` (check the `request` function in TestLensApiConsumerConract.sol).
 //            In this example, it's a tuple of two elements: [requestId, profileId]
 // - secrets: The custom secrets you set with the `config_core` function of the Action Offchain Rollup Phat Contract. In
-//            this example, it just a simple text of the lens api url prefix.
+//            this example, it just a simple text of the lens api url prefix. For more information on secrets, checkout the SECRETS.md file.
 //
 // Your returns value MUST be a hex string, and it will send to your contract directly. Check the `_onMessageReceived` function in
 // OracleConsumerContract.sol for more details. We suggest a tuple of three elements: [successOrNotFlag, requestId, data] as
