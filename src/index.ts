@@ -35,7 +35,7 @@ function encodeReply(reply: [number, number, string[]]): HexString {
 
 const stringArray = string[10];
 
-export default function main(request: HexString, settings: string): HexString {
+export default function main(request: HexString, secrets: string): HexString {
   return encodeReply([0, 1, stringArray]);
 }
 // OracleConsumerContract.sol
@@ -177,17 +177,17 @@ function parseReqStr(hexStr: string): string {
 //
 // - request: The raw payload from the contract call `request` (check the `request` function in TestLensApiConsumerConract.sol).
 //            In this example, it's a tuple of two elements: [requestId, profileId]
-// - settings: The custom settings you set with the `config_core` function of the Action Offchain Rollup Phat Contract. In
+// - secrets: The custom secrets you set with the `config_core` function of the Action Offchain Rollup Phat Contract. In
 //            this example, it just a simple text of the lens api url prefix.
 //
 // Your returns value MUST be a hex string, and it will send to your contract directly. Check the `_onMessageReceived` function in
 // OracleConsumerContract.sol for more details. We suggest a tuple of three elements: [successOrNotFlag, requestId, data] as
 // the return value.
 //
-export default function main(request: HexString, settings: string): HexString {
+export default function main(request: HexString, secrets: string): HexString {
   console.log(`handle req: ${request}`);
   // Uncomment to debug the `settings` passed in from the Phat Contract UI configuration.
-  // console.log(`settings: ${settings}`);
+  // console.log(`secrets: ${settings}`);
   let requestId, encodedReqStr;
   try {
     [requestId, encodedReqStr] = Coders.decode([uintCoder, bytesCoder], request);
@@ -199,7 +199,7 @@ export default function main(request: HexString, settings: string): HexString {
   console.log(`Request received for profile ${parsedHexReqStr}`);
 
   try {
-    const respData = fetchApiStats(settings, parsedHexReqStr);
+    const respData = fetchApiStats(secrets, parsedHexReqStr);
     let stats = respData.data.profile.stats.totalPosts;
     console.log("response:", [TYPE_RESPONSE, requestId, stats]);
     return encodeReply([TYPE_RESPONSE, requestId, stats]);
