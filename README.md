@@ -20,6 +20,17 @@ To kickstart your journey with the Phat Contract Starter Kit, you have 2 options
 npx @phala/fn init example
 ```
 
+<center>:rotating_light: <u><b>Note</b></u> :rotating_light:</center> 
+
+> When selecting your template, elect `phat-contract-starter-kit`.
+
+```shell
+npx @phala/fn init example
+? Please select one of the templates for your "example" project: (Use arrow keys)
+❯ phat-contract-starter-kit. The Phat Contract Starter Kit 
+  lensapi-oracle-consumer-contract. Polygon Consumer Contract for LensAPI Oracle 
+```
+
 :stop_sign: **Not so fast!** What is it exactly that we are building? :stop_sign:
 
 > **What are we building?** 
