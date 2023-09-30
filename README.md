@@ -10,7 +10,7 @@ The Phat Contract Starter Kit is your one-stop solution to connect any API to yo
 This starter kit empowers you to initiate the data request from the smart contract side. The request is then seamlessly sent to your script for processing. You have the liberty to call any APIs to fulfill the request and define the response data structure that will be replied to your smart contract.
 ## :runner: Quick Start
 To kickstart your journey with the Phat Contract Starter Kit, you have 2 options:
-1. Create a template from the [`phat-contract-starter-kit`](https://github.com/Phala-Network/phat-contract-starter-kit) template repo. Click on the "**Use this template**" button in the top right corner of the webpage. Then skip the `npx @phala/fn init example` step.
+1. Create a template from the [`phat-contract-starter-kit`](https://bit.ly/3PVlgHs) template repo. Click on the "**Use this template**" button in the top right corner of the webpage. Then skip the `npx @phala/fn init example` step.
   ![](./assets/UseThisTemplate.png)
 2. Install the `@phala/fn` CLI tool. You can do this using your node package manager (`npm`) or use node package execute (`npx`). For the purpose of this tutorial, we will be using `npx`.
 
@@ -18,6 +18,17 @@ To kickstart your journey with the Phat Contract Starter Kit, you have 2 options
 ```bash
 # Skip this step if chose option 1 or cloned this repo
 npx @phala/fn init example
+```
+
+<center>:rotating_light: <u><b>Note</b></u> :rotating_light:</center> 
+
+> When selecting your template, elect `phat-contract-starter-kit`.
+
+```shell
+npx @phala/fn init example
+? Please select one of the templates for your "example" project: (Use arrow keys)
+❯ phat-contract-starter-kit. The Phat Contract Starter Kit 
+  lensapi-oracle-consumer-contract. Polygon Consumer Contract for LensAPI Oracle 
 ```
 
 :stop_sign: **Not so fast!** What is it exactly that we are building? :stop_sign:
@@ -128,24 +139,24 @@ For a deeper dive into the details, click [here](./GETTING_STARTED.md),  or cont
 ## :building_construction: Use cases & Examples
 
 You could use the Oracle to:
-- **[Create a Telegram / Discord trading bot with Phat Contract](https://github.com/pacoyang/phatbot)**
+- **[Create a Telegram / Discord trading bot with Phat Contract](https://bit.ly/3LGpXCq)**
 - **[Cross-chain DEX Aggregator](./assets/case-cross-chain-dex-aggregator.jpg)**
 - **[Bring Web2 services & data on-chain](./assets/case-contract-controlled-web2-service.jpg)**
 - **Web3 Social Integrations**
-  - **[LensAPI Oracle](https://github.com/Phala-Network/lensapi-oracle-consumer-contract)**
-  - **[Lens Phite](https://github.com/aeyshubh/lens-Phite2)**
+  - **[LensAPI Oracle](https://bit.ly/3runoN1)**
+  - **[Lens Phite](https://bit.ly/3RG9OR7)**
   - **[Mint NFT based on LensAPI Oracle data](./assets/LensAPI-Oracle.png)**
-  - **[Lens Treasure Hunt](https://github.com/HashWarlock/lensapi-oracle-devdao-workshop)**
-- **[Get Randomness on-chain from drand.love and post with Telegram bot](https://github.com/HashWarlock/phat-drand-tg-bot)**
-- **Trustless HTTPS requests w/ [TLSNotary](https://tlsnotary.org/) integration**
+  - **[Lens Treasure Hunt](https://bit.ly/3PWP5Y9)**
+- **[Get Randomness on-chain from drand.love and post with Telegram bot](https://bit.ly/3PXDyI4)**
+- **Trustless HTTPS requests w/ [TLSNotary](https://bit.ly/3rwD2Hw) integration**
 - **[Connect to Phat Contract Rust SDK](./assets/Oracle-Rust-SDK.png)** to access all features
-- **[Dynamic NFTs](https://github.com/keshavsharma25/PokeLens-Contract)**
+- **[Dynamic NFTs](https://bit.ly/3ZBJHNb)**
 
 ## :books: Resources
-- **[What is an Oracle](https://ethereum.org/en/developers/docs/oracles/)**
+- **[What is an Oracle](https://bit.ly/3PE6ymF)**
 - **Frontend Templates**
-  - **[Scaffold ETH2](https://github.com/scaffold-eth/scaffold-eth-2)**
-    - **[Phat Scaffold ETH2](https://github.com/HashWarlock/phat-scaffold-eth)**
-  - **[Create ETH App](https://github.com/paulrberg/create-eth-app)**
-  - **[Nexth Starter Kit](https://nexth.vercel.app/)**
-- **[Technical Design Doc](https://github.com/Phala-Network/phat-offchain-rollup)**
+  - **[Scaffold ETH2](https://bit.ly/45ekZnt)**
+    - **[Phat Scaffold ETH2](https://bit.ly/46zZ23j)**
+  - **[Create ETH App](https://bit.ly/468I105)**
+  - **[Nexth Starter Kit](https://bit.ly/3EVS0di)**
+- **[Technical Design Doc](https://bit.ly/3ZAzdxE)**

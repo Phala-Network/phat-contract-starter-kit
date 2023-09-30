@@ -45,7 +45,7 @@ Check out the environment variables here in [.env.local](./.env.local) file.
 ## Getting Started
 > :rotating_light: **Note** :rotating_light:: If you cloned this repo or created a template, skip to [Create a Phala Profile](#create-a-phala-profile)
 > 
-First you will need to install the [@phala/fn](https://www.npmjs.com/package/@phala/fn) CLI tool using your node package manager (`npm`) or use node package execute (`npx`). In this tutorial we use `npx`.
+First you will need to install the `@phala/fn` CLI tool using your node package manager (`npm`) or use node package execute (`npx`). In this tutorial we use `npx`.
 
 Now create your first template with the CLI tool command:
 ```bash
@@ -98,7 +98,7 @@ This step requires you to have a Polkadot account. You can get an account from o
 - [Talisman Wallet](https://www.talisman.xyz/)
 - [SubWallet](https://www.subwallet.app/) (**Support for iOS/Android**)
 
-First, create your Bricks Profile account on the [Phala PoC5 Testnet](https://bricks-poc5.phala.network) or [Phala Mainnet](https://bricks.phala.network). Here is a quick 1 minute [YouTube video](https://youtu.be/z1MR48NYtYc) on setting up from scratch.
+First, create your Phala Profile account on the [Phala PoC5 Testnet](https://bricks-poc5.phala.network) or [Phala Mainnet](https://bricks.phala.network). Here is a quick 1 minute [YouTube video](https://youtu.be/z1MR48NYtYc) on setting up from scratch.
 Here is what your Phala Profile account overview should look like:
 ![](./assets/BricksProfileCheck.png)
 
@@ -408,7 +408,7 @@ yarn test-deploy
 # Done
 # ✨  Done in 8.20s.
 ```
-#### Verify Contract on Polygon Mumbai Testnet (Optional)
+#### (Optional) Verify Contract on Polygon Mumbai Testnet
 Ensure to update the [`mumbai.arguments.ts`](./mumbai.arguments.ts) file with the constructor arguments used to instantiate the Consumer Contract. If you add additional parameters to the constructor function then make sure to update the `mumbai.arguments.ts` file.
 > **Note**: Your contract address will be different than `0x090E8fDC571d65459569BC87992C1026121DB955` when verifying your contract. Make sure to get your actual contract address from the console log output after executing `yarn test-deploy`.
 ```shell
@@ -465,7 +465,7 @@ yarn test-deploy-function -a ./polkadot-account.json
 # ✨  Done in 73.22s.
 ```
 
-Go to the [PoC5 Testnet Bricks UI](https://bricks-poc5.phala.network) Dashboard and you can see your newly deployed Phat Contract.
+Go to the [PoC5 Testnet Phat Contract UI](https://bricks-poc5.phala.network) Dashboard and you can see your newly deployed Phat Contract.
 ![](./assets/Function-added.png)
 
 #### Interact with Consumer Contract on Polygon Mumbai
@@ -481,7 +481,7 @@ yarn test-set-attestor
 # $ hardhat run --network mumbai ./scripts/mumbai/set-attestor.ts
 # Setting attestor...
 # 🚨NOTE🚨
-# Make sure to set the Consumer Contract Address in your Phat Bricks 🧱 UI dashboard (https://bricks-poc5.phala.network)
+# Make sure to set the Consumer Contract Address in your Phat Contract 2.0 UI dashboard (https://bricks-poc5.phala.network)
 # - Go to 'Configure Client' section where a text box reads 'Add Consumer Smart Contract'
 # - Set value to 0x090E8fDC571d65459569BC87992C1026121DB955
 # Done
@@ -560,7 +560,7 @@ yarn main-deploy
 # Done
 # ✨  Done in 8.20s.
 ```
-#### Verify Contract on Polygon Mainnet
+#### (Optional) Verify Contract on Polygon Mainnet
 Ensure to update the [`polygon.arguments.ts`](./polygon.arguments.ts) file with the constructor arguments used to instantiate the Consumer Contract. If you add additional parameters to the constructor function then make sure to update the `polygon.arguments.ts` file.
 ```shell
 yarn main-verify 0xbb0d733BDBe151dae3cEf8D7D63cBF74cCbf04C4
@@ -616,7 +616,7 @@ Execute Scripts to Consumer Contract on Polygon Mainnet. The Consumer Contract o
 yarn main-set-attestor
 # Setting attestor...
 # 🚨NOTE🚨
-# Make sure to set the Consumer Contract Address in your Phat Bricks 🧱 UI dashboard (https://bricks-poc5.phala.network)
+# Make sure to set the Consumer Contract Address in your Phat Contract 2.0 UI dashboard (https://bricks-poc5.phala.network)
 # - Go to 'Configure Client' section where a text box reads 'Add Consumer Smart Contract'
 # - Set value to 0xbb0d733BDBe151dae3cEf8D7D63cBF74cCbf04C4
 # Done
@@ -660,5 +660,5 @@ yarn main-update-function -a ./polkadot-account.json
 ```
 
 ## Closing
-Once you have stored, the deployed address of the Consumer Contract and set the value in the "Configure Client" section of the deployed Phala Oracle, you will now have a basic boilerplate example of how to connect your Polygon dApp to a LensAPI Oracle Blueprint. Execute a new requests and check if your configuration is correct like below:
+Once you have stored, the deployed address of the Consumer Contract and set the value in the "Configure Client" section of the deployed Phala Oracle, you will now have a basic boilerplate example of how to connect your Polygon dApp to a Phala Oracle Template. Execute a new requests and check if your configuration is correct like below:
 ![](./assets/polygonscan-ex.png)
