@@ -63,7 +63,7 @@ yarn run-function -a 0x000000000000000000000000000000000000000000000000000000000
 >
 > The `Coders.decode` function deciphers these parameters, yielding the decoded `requestId` and `encodedReqStr`. These decoded elements then become the raw material for the rest of the custom logic within the script.
 > ```typescript 
-> export default function main(request: HexString, settings: string): HexString {
+> export default function main(request: HexString, secrets: string): HexString {
 >   console.log(`handle req: ${request}`);
 >   let requestId, encodedReqStr;
 >   try {

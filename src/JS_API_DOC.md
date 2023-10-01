@@ -387,7 +387,7 @@ const TYPE_RESPONSE = 0;
 const TYPE_ERROR = 2;
 
 // main entry function
-export default function main(request: HexString, settings: string): HexString {
+export default function main(request: HexString, secrets: string): HexString {
   //...
    let requestId, encodedReqStr;
   try {
@@ -459,7 +459,7 @@ const TYPE_RESPONSE = 0;
 const TYPE_ERROR = 2;
 
 // main entry function
-export default function main(request: HexString, settings: string): HexString {
+export default function main(request: HexString, secrets: string): HexString {
     //...
     let requestId, encodedReqStr;
     try {
@@ -529,7 +529,7 @@ const TYPE_RESPONSE = 0;
 const TYPE_ERROR = 2;
 
 // main entry function
-export default function main(request: HexString, settings: string): HexString {
+export default function main(request: HexString, secrets: string): HexString {
     //...
     let requestId, encodedReqStr;
     try {
@@ -596,7 +596,7 @@ function encodeReply(reply: [number, number, string[]]): HexString {
 
 const stringArray = string[10];
 
-export default function main(request: HexString, settings: string): HexString {
+export default function main(request: HexString, secrets: string): HexString {
   return encodeReply([0, 1, stringArray]);
 }
 ```
