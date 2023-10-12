@@ -53,9 +53,9 @@
   "dependencies": {
     "@openzeppelin/contracts": "4.9.3",
     "@phala/ethers": "^6.6.3",
-    "@phala/fn": "^0.1.6",
+    "@phala/fn": "^0.1.12",
     "@phala/pink-env": "^1.0.10",
-    "@phala/sdk": "^0.5.2",
+    "@phala/sdk": "^0.5.3-nightly-20231012",
     "dedent": "^1.5.1",
     "dotenv": "^16.0.3"
   }

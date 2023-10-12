@@ -27,12 +27,12 @@ First you will need to install the `@phala/fn` CLI tool using your node package 
 
 Now create your first template with the CLI tool command:
 ```bash
-npx @phala/fn init example
+npx @phala/fn@latest init example
 ```
 We currently have only one template. Just press enter to see something similar to the example below:
 
 ```bash
-npx @phala/fn init example
+npx @phala/fn@latest init example
 # ? Please select one of the templates for your "example" project: phala-oracle-consumer-contract. Polygon Consumer Contract for LensAPI Oracle
 # Downloading the template: https://github.com/Phala-Network/phala-oracle-consumer-contract... ✔
 # The project is created in ~/Projects/Phala/example

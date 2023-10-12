@@ -834,13 +834,13 @@
     tslib "2.4.0"
     ws "8.5.0"
 
-"@phala/fn@^0.1.6":
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/@phala/fn/-/fn-0.1.6.tgz#9b22670b89a95a6b3a449387626488e505361896"
-  integrity sha512-Sa/LSF9nNLwptMHo31v/Pw0zlxG3Kfs9gKbKGndKneY6mH3kGGypiIbau/eLnZIySdmDp7D3JzsaNLNrOr59Mw==
+"@phala/fn@^0.1.12":
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/@phala/fn/-/fn-0.1.12.tgz#20870480cb269aafa7f880762b7a42a0683d34ba"
+  integrity sha512-BTwUPoNR0mAp3VWDKTritqPAE5NaUw2erXp9CJX+/8F/QFYIwbl/hXFhvhAGMw3efMhQVo2TZDnqKquR0YFYdw==
   dependencies:
     "@oclif/core" "^2"
-    "@phala/sdk" "^0.5.2"
+    "@phala/sdk" "^0.5.3-nightly-20231011-1"
     "@types/node-fetch" "2"
     chalk "4"
     dotenv "^16.3.1"
@@ -864,10 +864,10 @@
   resolved "https://registry.yarnpkg.com/@phala/pink-env/-/pink-env-1.0.10.tgz#c0b8bb89464f92ebd9d7ac285c5af3a5b7cdbaf2"
   integrity sha512-3AfsyC3JncTMCfNbXZYEn6LRDs5wAABTb17KH72+/s3mg4EG3iY7layxiTRsTqauuq+eQ1RcBrXLgUBdp/Mcgg==
 
-"@phala/sdk@^0.5.2":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@phala/sdk/-/sdk-0.5.2.tgz#4d1f3bffdbfee3d0f16538914ac353e1bf7110ae"
-  integrity sha512-Qy1g3mCBe0rKOA9HyWgD8/t2n/UrNGhXc1IRCoo8K/3uBDfMcdDvK4KL9MvwTwPsb+NnXK3fwRSWsBiciMyL0Q==
+"@phala/sdk@^0.5.3-nightly-20231011-1", "@phala/sdk@^0.5.3-nightly-20231012":
+  version "0.5.3-nightly-20231012"
+  resolved "https://registry.yarnpkg.com/@phala/sdk/-/sdk-0.5.3-nightly-20231012.tgz#aadfc441e80a332e0e47051373c84041888f318f"
+  integrity sha512-KCOuaQMeLv0GTbToq6E88TTQTO84Xn6BPyI1BZNbL4RJ+Pimwer/tXQHplkG4mp2TleqGUXrz2seUnsH/q9i9w==
   dependencies:
     "@phala/typedefs" "^0.2.33"
     "@polkadot/api" "^10.9.1"
