@@ -49,7 +49,7 @@ First you will need to install the `@phala/fn` CLI tool using your node package 
 
 Now create your first template with the CLI tool command:
 ```bash
-npx @phala/fn init userJourney
+npx @phala/fn@latest init userJourney
 # ? Please select one of the templates for your "userJourney" project: (Use arrow keys)
 # ❯ phat-contract-starter-kit. The Phat Contract Starter Kit
 #   lensapi-oracle-consumer-contract. Polygon Consumer Contract for LensAPI Oracle
@@ -57,7 +57,7 @@ npx @phala/fn init userJourney
 Choose `phat-contract-starter-kit` template and press enter to see something similar to the example below:
 
 ```bash
-npx @phala/fn init userJourney
+npx @phala/fn@latest init userJourney
 # ? Please select one of the templates for your "userJourney" project: phat-contract-starter-kit. The Phat Contract Starter Kit
 # Downloading the template: https://github.com/Phala-Network/phat-contract-starter-kit... ✔
 # The project is created in /Users/hashwarlock/Projects/Phala/Temp/userJourney 🎉

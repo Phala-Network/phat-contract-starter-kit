@@ -10,14 +10,14 @@ The Phat Contract Starter Kit is your one-stop solution to connect any API to yo
 This starter kit empowers you to initiate the data request from the smart contract side. The request is then seamlessly sent to your script for processing. You have the liberty to call any APIs to fulfill the request and define the response data structure that will be replied to your smart contract.
 ## :runner: Quick Start
 To kickstart your journey with the Phat Contract Starter Kit, you have 2 options:
-1. Create a template from the [`phat-contract-starter-kit`](https://bit.ly/3PVlgHs) template repo. Click on the "**Use this template**" button in the top right corner of the webpage. Then skip the `npx @phala/fn init example` step.
+1. Create a template from the [`phat-contract-starter-kit`](https://bit.ly/3PVlgHs) template repo. Click on the "**Use this template**" button in the top right corner of the webpage. Then skip the `npx @phala/fn@latest init example` step.
   ![](./assets/UseThisTemplate.png)
 2. Install the `@phala/fn` CLI tool. You can do this using your node package manager (`npm`) or use node package execute (`npx`). For the purpose of this tutorial, we will be using `npx`.
 
 (Option 2) Once you have the CLI tool installed, you can create your first Phala Oracle template with the following command.
 ```bash
 # Skip this step if chose option 1 or cloned this repo
-npx @phala/fn init example
+npx @phala/fn@latest init example
 ```
 
 <center>:rotating_light: <u><b>Note</b></u> :rotating_light:</center> 
@@ -25,7 +25,7 @@ npx @phala/fn init example
 > When selecting your template, elect `phat-contract-starter-kit`.
 
 ```shell
-npx @phala/fn init example
+npx @phala/fn@latest init example
 ? Please select one of the templates for your "example" project: (Use arrow keys)
 ❯ phat-contract-starter-kit. The Phat Contract Starter Kit 
   lensapi-oracle-consumer-contract. Polygon Consumer Contract for LensAPI Oracle 
