@@ -123,7 +123,7 @@ yarn hardhat test
 
 You have successfully completed the quick start. For the next steps, you will learn how to deploy your Phala Oracle and connect to the consumer contract for the EVM testnet chain to start testing the request-response model live.
 
-For a deeper dive into the details, click [here](./GETTING_STARTED.md),  or continue reading to learn about the valuable features the Phala Oracle can offer to your on-chain consumer contract.
+For a deeper dive into the details, click [here](https://bit.ly/connect-pc-2-0-to-evm-sc),  or continue reading to learn about the valuable features the Phala Oracle can offer to your on-chain consumer contract.
 
 ---
 ## :magic_wand: Features and Benefits
@@ -154,6 +154,7 @@ You could use the Oracle to:
 
 ## :books: Resources
 - **[What is an Oracle](https://bit.ly/3PE6ymF)**
+- **[`phat_js` Docs](https://bit.ly/phat_js)**
 - **Frontend Templates**
   - **[Scaffold ETH2](https://bit.ly/45ekZnt)**
     - **[Phat Scaffold ETH2](https://bit.ly/46zZ23j)**

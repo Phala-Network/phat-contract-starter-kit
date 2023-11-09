@@ -14,7 +14,7 @@ async function main() {
   console.log('Setting attestor...');
   const attestor = process.env['POLYGON_PHALA_ORACLE_ATTESTOR'] || deployer.address;
   await consumer.connect(deployer).setAttestor(attestor); // change this to the identity of your ActionOffchainRollup found in your Phala Oracle deployment labeled 'Oracle Endpoint'
-  console.log(`🚨NOTE🚨\nMake sure to set the Consumer Contract Address in your Phat Contract 2.0 UI dashboard (https://bricks.phala.network)\n- Go to 'Configure Client' section where a text box reads 'Add Consumer Smart Contract'\n- Set value to ${consumerSC}`)
+  console.log(`🚨NOTE🚨\nMake sure to set the Consumer Contract Address in your Phat Contract 2.0 UI dashboard (https://bricks.phala.network)\n- Go to the 'Configuration' tab and update the 'Client' box\n- Set value to ${consumerSC}`)
   console.log('Done');
 }
 
