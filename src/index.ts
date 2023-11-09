@@ -2,6 +2,7 @@
 // *** ADDING ANY IMPORTS WILL RESULT IN ERRORS & UPLOADING YOUR CODE TO PHALA  ***
 // *** NETWORK WILL FAIL. IF YOU WANT TO KNOW MORE, JOIN OUR DISCORD TO SPEAK   ***
 // *** WITH THE PHALA TEAM AT https://discord.gg/5HfmWQNX THANK YOU             ***
+// *** FOR DOCS ON HOW TO CUSTOMIZE YOUR PC 2.0 https://bit.ly/customize-pc-2-0 ***
 import "@phala/pink-env";
 import { Coders } from "@phala/ethers";
 
@@ -186,8 +187,8 @@ function parseReqStr(hexStr: string): string {
 //
 export default function main(request: HexString, secrets: string): HexString {
   console.log(`handle req: ${request}`);
-  // Uncomment to debug the `settings` passed in from the Phat Contract UI configuration.
-  // console.log(`secrets: ${settings}`);
+  // Uncomment to debug the `secrets` passed in from the Phat Contract UI configuration.
+  // console.log(`secrets: ${secrets}`);
   let requestId, encodedReqStr;
   try {
     [requestId, encodedReqStr] = Coders.decode([uintCoder, bytesCoder], request);
