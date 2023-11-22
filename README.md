@@ -52,7 +52,7 @@ yarn build-function
 ```
 To simulate the expected result locally, run the Phala Oracle function now with this command:
 ```bash
-yarn run-function -a 0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000043078303100000000000000000000000000000000000000000000000000000000 https://api-mumbai.lens.dev
+yarn run-function -a 0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000043078303100000000000000000000000000000000000000000000000000000000 https://api-v2.lens.dev/
 ```
 >
 > **What are the ingredients for the `yarn run-function` command?**
@@ -77,20 +77,23 @@ yarn run-function -a 0x000000000000000000000000000000000000000000000000000000000
 <details>
   <summary><u>How the query looks under the hood</u></summary>
 
-- HTTP Endpoint: https://api-mumbai.lens.dev
+- HTTP Endpoint: https://api-v2.lens.dev/
 - Profile ID: `0x01`
 - Expected Graphql Query:
   ```graphql
   query Profile {
-    profile(request: { profileId: "0x01" }) {
+    profile(request: { forProfileId: "0x01" }) {
       stats {
-          totalFollowers
-          totalFollowing
-          totalPosts
-          totalComments
-          totalMirrors
-          totalPublications
-          totalCollects
+          followers
+          following
+          comments
+          countOpenActions
+          posts
+          quotes
+          mirrors
+          publications
+          reacted
+          reactions
       }
     }
   }
@@ -101,13 +104,16 @@ yarn run-function -a 0x000000000000000000000000000000000000000000000000000000000
     "data": {
       "profile": {
         "stats": {
-          "totalFollowers": 3361,
-          "totalFollowing": 0,
-          "totalPosts": 3,
-          "totalComments": 0,
-          "totalMirrors": 0,
-          "totalPublications": 3,
-          "totalCollects": 1597
+          "followers": 87426,
+          "following": 2,
+          "comments": 229,
+          "countOpenActions": 3,
+          "posts": 201,
+          "quotes": 3,
+          "mirrors": 320,
+          "publications": 814,
+          "reacted": 641,
+          "reactions": 624227
         }
       }
     }
