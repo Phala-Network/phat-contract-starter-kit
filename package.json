@@ -23,8 +23,8 @@
     "localhost-deploy": "hardhat run --network localhost ./scripts/localhost/deploy.ts",
     "localhost-watch": "phat-fn watch",
     "localhost-push-request": "hardhat run --network localhost ./scripts/localhost/push-request.ts",
-    "test-deploy-function": "phat-fn upload --coreSettings=https://api-mumbai.lens.dev/",
-    "main-deploy-function": "phat-fn upload --mode=production --coreSettings=https://api.lens.dev/",
+    "test-deploy-function": "phat-fn upload --coreSettings=https://api-v2-mumbai.lens.dev/",
+    "main-deploy-function": "phat-fn upload --mode=production --coreSettings=https://api-v2.lens.dev/",
     "test-update-function": "phat-fn update",
     "main-update-function": "phat-fn update --mode=production"
   },
