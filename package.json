@@ -55,16 +55,10 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "4.9.3",
-    "@phala/fn": "^0.2.4",
-    "@phala/pink-env": "^1.0.13",
+    "@phala/fn": "^0.2.8",
     "@phala/solidity": "^0.0.3",
     "viem": "^1.19.3",
     "dedent": "^1.5.1",
     "dotenv": "^16.0.3"
-  },
-  "resolutions": {
-    "@polkadot/api": "^10.11.1",
-    "@polkadot/api-contract": "^10.11.1",
-    "@polkadot/api-derive": "^10.11.1"
   }
 }

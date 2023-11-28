@@ -44,18 +44,18 @@ npx @phala/fn@latest init example
 
 After creating a Phala Oracle template, `cd` into the new project and install the package dependencies. You can do this with the following command:
 ```bash
-yarn install
+npm install
 ```
 Now, build the default Phala Oracle function with this command:
 ```bash
-yarn build-function
+npm run build-function
 ```
 To simulate the expected result locally, run the Phala Oracle function now with this command:
 ```bash
-yarn run-function -a 0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000043078303100000000000000000000000000000000000000000000000000000000 https://api-v2.lens.dev/
+npm run run-function dist/index.js -- -a 0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000043078303100000000000000000000000000000000000000000000000000000000 https://api-v2.lens.dev/
 ```
 >
-> **What are the ingredients for the `yarn run-function` command?**
+> **What are the ingredients for the `npx @phala/fn run` command?**
 >
 > Our Phat Contract script, now fully constructed, is ready for a trial run. This simulation mirrors the live script's operation when deployed on the Phala Network.
 >
@@ -123,7 +123,7 @@ yarn run-function -a 0x000000000000000000000000000000000000000000000000000000000
 
 Finally, run the local end-to-end tests with this command. Here we will simulate locally the interaction between the Phat Contract and the Consumer Contract with hardhat.
 ```bash
-yarn hardhat test
+npm run localhost-test 
 ```
 :partying_face: **Congratulations!** 
 
