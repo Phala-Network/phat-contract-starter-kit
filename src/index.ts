@@ -4,7 +4,23 @@
 // *** WITH THE PHALA TEAM AT https://discord.gg/5HfmWQNX THANK YOU             ***
 // *** FOR DOCS ON HOW TO CUSTOMIZE YOUR PC 2.0 https://bit.ly/customize-pc-2-0 ***
 import "@phala/pink-env";
-import {encodeReply, decodeRequest, HexString, encodeReplyAbiParams, decodeRequestAbiParams} from "./viem/coder";
+import {decodeAbiParameters, encodeAbiParameters, parseAbiParameters} from "viem";
+
+type HexString = `0x${string}`;
+const encodeReplyAbiParams = 'uint respType, uint id, uint256 data';
+const decodeRequestAbiParams = 'uint id, string reqData';
+
+function encodeReply(abiParams: string, reply: [bigint, bigint, bigint]): HexString {
+  return encodeAbiParameters(parseAbiParameters(abiParams),
+      reply
+  );
+}
+
+function decodeRequest(abiParams: string, request: HexString): any {
+  return decodeAbiParameters(parseAbiParameters(abiParams),
+      request
+  );
+}
 
 // Defined in OracleConsumerContract.sol
 const TYPE_RESPONSE = 0;
@@ -40,8 +56,7 @@ function stringToHex(str: string): string {
   return "0x" + hex;
 }
 
-function fetchApiStats(apiUrl: string, reqStr: string): any {
-  // reqStr should be any valid hex string
+function fetchApiStats(apiUrl: string, requestStr: string): any {
   let headers = {
     "Content-Type": "application/json",
     "User-Agent": "phat-contract",
@@ -49,7 +64,7 @@ function fetchApiStats(apiUrl: string, reqStr: string): any {
   let query = JSON.stringify({
     query: `
       query Profile {
-        profile(request: { forProfileId: "0x01" }) {
+        profile(request: { forProfileId: "${requestStr}" }) {
           stats {
               followers
               following
