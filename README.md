@@ -52,7 +52,7 @@ npm run build-function
 ```
 To simulate the expected result locally, run the Phala Oracle function now with this command:
 ```bash
-npm run run-function dist/index.js -- -a 0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000043078303100000000000000000000000000000000000000000000000000000000 https://api-v2.lens.dev/
+npm run run-function dist/index.js -- -a 0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000043078303100000000000000000000000000000000000000000000000000000000 https://api-v2-mumbai-live.lens.dev/
 ```
 >
 > **What are the ingredients for the `npx @phala/fn run` command?**
@@ -77,7 +77,7 @@ npm run run-function dist/index.js -- -a 0x0000000000000000000000000000000000000
 <details>
   <summary><u>How the query looks under the hood</u></summary>
 
-- HTTP Endpoint: https://api-v2.lens.dev/
+- HTTP Endpoint: https://api-v2-mumbai-live.lens.dev/
 - Profile ID: `0x01`
 - Expected Graphql Query:
   ```graphql
@@ -104,16 +104,16 @@ npm run run-function dist/index.js -- -a 0x0000000000000000000000000000000000000
     "data": {
       "profile": {
         "stats": {
-          "followers": 87426,
-          "following": 2,
-          "comments": 229,
-          "countOpenActions": 3,
-          "posts": 201,
-          "quotes": 3,
-          "mirrors": 320,
-          "publications": 814,
-          "reacted": 641,
-          "reactions": 624227
+          "followers": 2,
+          "following": 0,
+          "comments": 0,
+          "countOpenActions": 1,
+          "posts": 14,
+          "quotes": 0,
+          "mirrors": 0,
+          "publications": 14,
+          "reacted": 0,
+          "reactions": 0
         }
       }
     }
