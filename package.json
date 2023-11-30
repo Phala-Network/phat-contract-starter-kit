@@ -1,8 +1,11 @@
 {
   "name": "phat-contract-starter-kit",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "compile": "hardhat compile",
     "clean": "hardhat clean",
@@ -23,8 +26,8 @@
     "localhost-deploy": "hardhat run --network localhost ./scripts/localhost/deploy.ts",
     "localhost-watch": "phat-fn watch",
     "localhost-push-request": "hardhat run --network localhost ./scripts/localhost/push-request.ts",
-    "test-deploy-function": "phat-fn upload --coreSettings=https://api-mumbai.lens.dev/",
-    "main-deploy-function": "phat-fn upload --mode=production --coreSettings=https://api.lens.dev/",
+    "test-deploy-function": "phat-fn upload --coreSettings=https://api-v2-mumbai-live.lens.dev/",
+    "main-deploy-function": "phat-fn upload --mode=production --coreSettings=https://api-v2.lens.dev/",
     "test-update-function": "phat-fn update",
     "main-update-function": "phat-fn update --mode=production"
   },
@@ -52,12 +55,10 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "4.9.3",
-    "@phala/ethers": "^6.6.3",
-    "@phala/fn": "^0.2.4",
-    "@phala/pink-env": "^1.0.13",
-    "@phala/sdk": "^0.5.5",
+    "@phala/fn": "^0.2.8",
     "@phala/solidity": "^0.0.3",
     "dedent": "^1.5.1",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "viem": "^1.19.3"
   }
 }
