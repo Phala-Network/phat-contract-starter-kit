@@ -10,7 +10,7 @@ type HexString = `0x${string}`;
 const encodeReplyAbiParams = 'uint respType, uint id, uint256 data';
 const decodeRequestAbiParams = 'uint id, string reqData';
 
-function encodeReply(abiParams: string, reply: [bigint, bigint, bigint]): HexString {
+function encodeReply(abiParams: string, reply: any): HexString {
   return encodeAbiParameters(parseAbiParameters(abiParams),
       reply
   );
@@ -145,14 +145,14 @@ export default function main(request: HexString, secrets: string): HexString {
     const respData = fetchApiStats(secrets, encodedReqStr);
     let stats = respData.data.profile.stats.posts;
     console.log("response:", [TYPE_RESPONSE, requestId, stats]);
-    return encodeReply(encodeReplyAbiParams, [BigInt(TYPE_RESPONSE), requestId, stats]);
+    return encodeReply(encodeReplyAbiParams, [TYPE_RESPONSE, requestId, stats]);
   } catch (error) {
     if (error === Error.FailedToFetchData) {
       throw error;
     } else {
       // otherwise tell client we cannot process it
       console.log("error:", [TYPE_ERROR, requestId, error]);
-      return encodeReply(encodeReplyAbiParams, [BigInt(TYPE_ERROR), requestId, BigInt(errorToCode(error as Error))]);
+      return encodeReply(encodeReplyAbiParams, [TYPE_ERROR, requestId, errorToCode(error as Error)]);
     }
   }
 }

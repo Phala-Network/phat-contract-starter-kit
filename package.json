@@ -57,8 +57,8 @@
     "@openzeppelin/contracts": "4.9.3",
     "@phala/fn": "^0.2.8",
     "@phala/solidity": "^0.0.3",
-    "viem": "^1.19.3",
     "dedent": "^1.5.1",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "viem": "^1.19.3"
   }
 }
