@@ -18,4 +18,3 @@ artifacts
 .phat
 dist
 polkadot-account.json
-package-lock.json
