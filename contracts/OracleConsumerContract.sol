@@ -32,10 +32,9 @@ contract OracleConsumerContract is PhatRollupAnchor, Ownable {
 
     // For test
     function malformedRequest(bytes calldata malformedData) public {
-        uint id = nextRequest;
+        uint id = 0;
         requests[id] = "malformed_req";
         _pushMessage(malformedData);
-        nextRequest += 1;
     }
 
     function _onMessageReceived(bytes calldata action) internal override {

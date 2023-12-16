@@ -29,7 +29,8 @@
     "test-deploy-function": "phat-fn upload --coreSettings=https://api-v2-mumbai-live.lens.dev/",
     "main-deploy-function": "phat-fn upload --mode=production --coreSettings=https://api-v2.lens.dev/",
     "test-update-function": "phat-fn update",
-    "main-update-function": "phat-fn update --mode=production"
+    "main-update-function": "phat-fn update --mode=production",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@ethersproject/abi": "^5.4.7",
@@ -60,6 +61,7 @@
     "@phala/solidity": "^0.0.4",
     "dedent": "^1.5.1",
     "dotenv": "^16.0.3",
+    "patch-package": "^8.0.0",
     "viem": "^1.19.3"
   }
 }

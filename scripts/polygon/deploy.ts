@@ -8,7 +8,7 @@ async function main() {
   const [deployer] = await ethers.getSigners();
 
   console.log('Deploying...');
-  const attestor = process.env['POLYGON_PHALA_ORACLE_ATTESTOR'] || deployer.address;  // When deploy for real e2e test, change it to the real attestor wallet.
+  const attestor = process.env['POLYGON_PHALA_ORACLE_ATTESTOR'] ?? deployer.address;  // When deploy for real e2e test, change it to the real attestor wallet.
   const consumer = await OracleConsumerContract.deploy(attestor);
   await consumer.deployed();
   const finalMessage = dedent`
