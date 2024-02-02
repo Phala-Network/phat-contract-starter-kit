@@ -15,7 +15,6 @@ Install the `@phala/fn` CLI tool. You can do this using your node package manage
 
 Once you have the CLI tool installed, you can create your first Phala Oracle template with the following command.
 ```bash
-# Skip this step if chose option 1 or cloned this repo
 npx @phala/fn@latest init example
 ```
 
@@ -52,7 +51,15 @@ Now, build the default Phala Oracle function with this command:
 ```bash
 npx @phala/fn build
 ```
-To simulate the expected result locally, run the Phala Oracle function now with this command:
+To simulate the expected result locally, run the Phat Contract script now with the `npx @phala/fn run` command to test the expected output when passing an encoded hexstring and the secrets into the `main` function of the Phat Contract. This is helpful to test locally quick to understand the functionality of your compiled Phat Contract.
+> Go to https://playground.ethers.org to decode and encode the hexstring you want to pass into your Phat Contract main function.
+> In this example, the hexstring `0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000043078303100000000000000000000000000000000000000000000000000000000` represents types `uint id`, `string reqData` 
+> Here is what you will enter in the playground:
+> - `utils.defaultAbiCoder.decode(['uint id', 'string reqData'], '0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000043078303100000000000000000000000000000000000000000000000000000000')`
+> - `[ BigNumber { value: "1" }, "0x01", id: BigNumber { value: "1" }, reqData: "0x01" ]`
+> You can easily validate this by encoding the types and data with the `utils.defaultAbiCoder.encode()` function like below.
+> - `utils.defaultAbiCoder.encode(['uint id', 'string reqData'], [1, "0x01"])`
+> - `"0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000043078303100000000000000000000000000000000000000000000000000000000"`
 ```bash
 npx @phala/fn run dist/index.js -a 0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000043078303100000000000000000000000000000000000000000000000000000000 https://api-v2-mumbai-live.lens.dev/
 ```
