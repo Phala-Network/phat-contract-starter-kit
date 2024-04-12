@@ -1,4 +1,12 @@
 # :hammer_and_pick: The Phat Contract Starter Kit
+> :warning: **Important** ⚠️
+> 
+> This guide references the `mumbai` testnet chain. 
+>
+> The `mumbai` testnet is [deprecated since 2024/04/08](https://blog.thirdweb.com/deprecation-of-mumbai-testnet/), meaning the steps to deploy to a testnet will no longer work out of the box.
+>
+> You can opt to use the [amoy](https://polygon.technology/blog/introducing-the-amoy-testnet-for-polygon-pos) testnet or any other EVM testnet instead.
+
 > <u>**Note on Terminology**</u>
 > 
 > **Phat Contract** will also be referred to as the **Phala Oracle** in this `README`. 
